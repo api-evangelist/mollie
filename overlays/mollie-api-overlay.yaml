@@ -1,0 +1,81 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Mollie API
+  version: 1.0.0
+x-generated: '2026-08-01'
+x-method: generated
+x-source: >-
+  Derived from API Evangelist enrichment of openapi/mollie-openapi-original.yml. This
+  overlay records our observations and cross-links; it never mutates the harvested spec.
+extends: openapi/mollie-openapi-original.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-08-01'
+    x-apievangelist-provider: mollie
+    x-apievangelist-spec-source: https://github.com/mollie/openapi
+    x-apievangelist-operations: 124
+    x-apievangelist-schemas: 379
+    x-apievangelist-tags: 33
+    x-artifacts:
+      authentication: authentication/mollie-authentication.yml
+      scopes: scopes/mollie-scopes.yml
+      conventions: conventions/mollie-conventions.yml
+      errors: errors/mollie-problem-types.yml
+      decline_codes: errors/mollie-decline-codes.yml
+      webhooks: asyncapi/mollie-webhooks.yml
+      sandbox: sandbox/mollie-sandbox.yml
+      data_model: data-model/mollie-data-model.yml
+      lifecycle: lifecycle/mollie-lifecycle.yml
+      mcp: mcp/mollie-mcp.yml
+      tool_crosswalk: mcp/mollie-tool-crosswalk.yml
+      skills: skills/_index.yml
+- target: $.info
+  update:
+    x-apievangelist-notes:
+      error_format: >-
+        Errors are application/hal+json with status/title/detail/_links, not RFC 9457
+        application/problem+json.
+      idempotency: >-
+        The Idempotency-Key header is declared on all 124 operations; Mollie replays the
+        cached response for one hour.
+      rate_limits: >-
+        429 is declared on all 124 operations. RateLimit and RateLimit-Policy headers are
+        returned on every response, Retry-After only on 429.
+      deprecation_gap: >-
+        Zero operations carry deprecated:true even though the docs discourage the Orders
+        API and submit-onboarding-data. Deprecation is prose-only and invisible to an agent
+        reading the contract.
+      oauth_scope_gap: >-
+        The oauth2 securityScheme declares an empty scopes map; the 42 scopes actually used
+        appear only in per-operation security requirements. Mollie's RFC 8414 metadata
+        publishes 61.
+- target: $.components.securitySchemes.oAuth.flows.authorizationCode
+  update:
+    x-apievangelist-scopes-source: https://my.mollie.com/.well-known/oauth-authorization-server
+    x-apievangelist-scopes-published: 61
+    x-apievangelist-scopes-used-in-spec: 42
+    x-apievangelist-pkce: S256
+    x-apievangelist-dynamic-registration: https://api.mollie.com/oauth2/register
+- target: $.components.parameters['idempotency-key']
+  update:
+    x-apievangelist-retention: 3600
+    x-apievangelist-retention-unit: seconds
+    x-apievangelist-required-on: [create-transfer]
+    x-apievangelist-critical-flows: [recurring payments, subscription creation, partial refunds]
+    x-apievangelist-docs: https://docs.mollie.com/reference/api-idempotency
+- target: $.components.schemas['error-response']
+  update:
+    x-apievangelist-error-format: mollie-hal-error
+    x-apievangelist-rfc9457: false
+    x-apievangelist-catalog: errors/mollie-problem-types.yml
+- target: $.components.schemas['webhook-event-types']
+  update:
+    x-apievangelist-event-count: 36
+    x-apievangelist-catalog: asyncapi/mollie-webhooks.yml
+    x-apievangelist-asyncapi-published: false
+- target: $.servers[0]
+  update:
+    x-apievangelist-tls: TLSv1.3
+    x-apievangelist-hsts: false
+    x-apievangelist-domain-security: security/mollie-domain-security.yml

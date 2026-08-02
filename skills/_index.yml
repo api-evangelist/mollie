@@ -1,0 +1,60 @@
+generated: '2026-08-01'
+method: searched
+source: https://github.com/mollie/ai
+note: >-
+  Mollie publishes its own Agent Skill in github.com/mollie/ai, distributed as a Claude Code
+  plugin (`claude plugin marketplace add mollie/ai` then `claude plugin install mollie@mollie`).
+  That skill is saved here verbatim. The remaining skills are API Evangelist generations,
+  grounded in operationIds verified against openapi/mollie-openapi-original.yml.
+skills:
+- file: mollie-integration.md
+  name: mollie-integration
+  method: searched
+  source: https://github.com/mollie/ai/blob/main/skills/mollie-integration/SKILL.md
+  publisher: Mollie
+  description: >-
+    Mollie's own skill for developers integrating Mollie payments — identifies merchant vs
+    platform, picks a checkout style, then walks the integration. Ships with reference
+    files for hosted checkout, custom checkout, Components and webhooks.
+  references:
+  - references/mollie-hosted-checkout.md
+  - references/mollie-build-your-own-checkout.md
+  - references/mollie-components.md
+  - references/mollie-webhooks.md
+- file: mollie-accept-a-payment.md
+  name: mollie-accept-a-payment
+  method: generated
+  api: openapi/mollie-openapi-original.yml
+  operations: [create-payment, get-payment, list-methods, create-webhook, get-webhook-event]
+  description: Create a payment, redirect to the hosted checkout, and confirm the result
+    before fulfilling.
+- file: mollie-recurring-and-subscriptions.md
+  name: mollie-recurring-and-subscriptions
+  method: generated
+  api: openapi/mollie-openapi-original.yml
+  operations: [create-customer, create-customer-payment, list-mandates, get-mandate, create-mandate,
+    create-subscription, list-subscription-payments, cancel-subscription, revoke-mandate]
+  description: Establish a mandate from a first payment, then charge recurring payments or
+    run a subscription without double-charging.
+- file: mollie-refund-and-reconcile.md
+  name: mollie-refund-and-reconcile
+  method: generated
+  api: openapi/mollie-openapi-original.yml
+  operations: [get-payment, create-refund, get-refund, cancel-refund, list-all-refunds, list-all-chargebacks,
+    list-settlements, list-settlement-payments, list-settlement-refunds, list-settlement-chargebacks,
+    list-balances, list-balance-transactions, get-balance-report, list-payouts]
+  description: Refund safely, absorb chargebacks, and reconcile settlements, balances and
+    payouts.
+- file: mollie-connect-onboarding.md
+  name: mollie-connect-onboarding
+  method: generated
+  api: openapi/mollie-openapi-original.yml
+  operations: [create-client-link, oauth-generate-tokens, oauth-revoke-tokens, list-clients,
+    get-client, get-onboarding-status, list-capabilities, get-current-organization, get-partner-status,
+    payment-create-route, create-connect-balance-transfer, list-connect-balance-transfers]
+  description: Onboard merchants onto a Mollie Connect platform with OAuth, track capabilities,
+    and route or transfer funds on their behalf.
+related:
+  agent_toolkit: https://github.com/mollie/ai/tree/main/packages/agent-toolkit
+  mcp: mcp/mollie-mcp.yml
+  crosswalk: mcp/mollie-tool-crosswalk.yml

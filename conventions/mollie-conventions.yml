@@ -1,0 +1,141 @@
+generated: '2026-08-01'
+method: searched
+source: https://docs.mollie.com/reference/overview
+derived_from: openapi/mollie-openapi-original.yml
+authentication:
+  style: bearer
+  header: Authorization
+  variants: [API key (test_/live_), advanced access token (access_), OAuth 2.0 access token]
+  artifact: authentication/mollie-authentication.yml
+  docs: https://docs.mollie.com/reference/authentication
+idempotency:
+  supported: true
+  header: Idempotency-Key
+  value_format: UUID v4 (recommended)
+  scope: per request
+  retention: 1 hour
+  behavior: >-
+    If another request is made with the exact same Idempotency-Key value within one hour,
+    the Mollie API returns a cached version of the initial response.
+  required_on:
+  - create-transfer (Business Account Transfers — the Idempotency-Key header is mandatory)
+  recommended_on:
+  - Recurring payments (sequenceType=recurring) — retry without a key can double-charge
+  - Subscription creation — retry without a key can create two subscriptions
+  - Partial refunds — retry without a key can execute two separate partial refunds
+  spec_coverage: >-
+    The idempotency-key header parameter is declared on all 124 operations in the OpenAPI
+    document via #/components/parameters/idempotency-key.
+  docs: https://docs.mollie.com/reference/api-idempotency
+pagination:
+  style: cursor
+  applies_to: all v2 list endpoints
+  request_params:
+  - name: limit
+    in: query
+    default: 50
+    maximum: 250
+    description: Maximum number of items to return.
+  - name: from
+    in: query
+    description: Object ID to start the result set from, for forward pagination.
+  - name: sort
+    in: query
+    values: [asc, desc]
+    default: desc
+    description: Direction of the results (desc = older, asc = newer). Supported on some endpoints.
+  response_fields:
+  - count
+  - _embedded
+  - _links.self
+  - _links.previous
+  - _links.next
+  - _links.documentation
+  rationale: >-
+    Paginating by object ID rather than page number so items do not shift when a new
+    object is created on the same account mid-traversal.
+  docs: https://docs.mollie.com/reference/pagination
+media_type:
+  request: application/json
+  response: application/hal+json
+  hypermedia: HAL — every resource carries an _links object with href + type per link;
+    lists nest their items under _embedded.
+field_expansion:
+  supported: true
+  params:
+  - name: embed
+    in: query
+    description: Embed related resources in the response.
+    used_on_operations: 14
+  - name: include
+    in: query
+    description: Include additional detail on the returned resource.
+    used_on_operations: 7
+metadata:
+  supported: true
+  field: metadata
+  description: Free-form data attached to Mollie resources (payments, customers, orders,
+    refunds) and returned unchanged on every read.
+test_mode:
+  mechanisms:
+  - Test API key (test_ prefix) instead of the live key
+  - testmode query/body parameter, for advanced access tokens and app tokens
+  spec_coverage: testmode parameter declared on 40 operations; oauth-testmode on 12.
+  artifact: sandbox/mollie-sandbox.yml
+versioning:
+  scheme: uri-path
+  current: v2
+  path_prefix: /v2
+  note: >-
+    No date-based or header-based version pinning. Mollie treats additive changes as
+    non-breaking and expects clients to tolerate new fields and new enum values.
+  artifact: lifecycle/mollie-lifecycle.yml
+error_envelope:
+  format: mollie-error-response
+  rfc9457: false
+  content_type: application/hal+json
+  required_fields: [status, title, detail, _links]
+  optional_fields: [field]
+  field_semantics:
+    status: HTTP status code, always identical to the HTTP status of the response.
+    title: HTTP reason phrase, e.g. "Not Found".
+    detail: Human-readable description of what went wrong.
+    field: Name of the request field that caused the issue, when applicable.
+    _links.documentation: URL to the Mollie error-handling guide.
+  artifact: errors/mollie-problem-types.yml
+  docs: https://docs.mollie.com/reference/handling-errors
+rate_limiting:
+  signalled: true
+  status: 429 Too Many Requests
+  unit: requests per second, with burst capacity
+  dynamic: true
+  headers:
+  - name: RateLimit-Policy
+    returned_in: all responses
+    description: Policy name (e.g. get-v2-payments), quota q in req/s, drain window w in seconds,
+      and mollie-burst headroom.
+  - name: RateLimit
+    returned_in: all responses
+    description: Current bucket state — policy name, remaining capacity r, seconds until
+      drained t, and remaining mollie-burst headroom.
+  - name: Retry-After
+    returned_in: 429 responses only
+    description: Integer seconds until the next request slot opens.
+  example: |
+    RateLimit-Policy: "get-v2-payments";q=20;w=3;mollie-burst=60
+    RateLimit: "get-v2-payments";r=15;t=2;mollie-burst=60
+  guidance: Use retry with backoff; avoid repeated bursts; request higher capacity via Mollie.
+  rollout: Being rolled out gradually; not yet available on every account.
+  docs: https://docs.mollie.com/reference/rate-limiting
+request_tracing:
+  request_id_header: null
+  observed: >-
+    No documented client-facing request-id correlation header. Mollie instead offers
+    Request logs in the Dashboard for inspecting individual API calls.
+  docs: https://docs.mollie.com/reference/request-logs
+webhooks:
+  artifact: asyncapi/mollie-webhooks.yml
+  docs: https://docs.mollie.com/reference/webhooks-new
+identifiers:
+  style: prefixed opaque string
+  artifact: data-model/mollie-data-model.yml

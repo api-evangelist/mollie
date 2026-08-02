@@ -1,0 +1,51 @@
+generated: '2026-08-01'
+method: searched
+probe: true
+url: https://www.mollie.com/security
+note: >-
+  Mollie does not run a dedicated trust-center subdomain — trust.mollie.com does not
+  resolve and www.mollie.com/trust and /compliance both return 404. The security page at
+  www.mollie.com/security is the published trust surface and names the attestations below.
+certifications:
+- name: SOC 2 Type 2
+  detail: Security, availability and confidentiality controls independently assessed against
+    the AICPA Trust Services Criteria.
+- name: PCI-DSS Level 1
+  detail: Highest security tier for card payment processing, validated through an Attestation
+    of Compliance (AoC). Mollie Components let merchants stay within PCI-DSS SAQ-A.
+- name: ISAE 3402 Type 2
+  detail: Annual external audit providing independent assurance of operational controls and
+    integrity.
+- name: GDPR
+  detail: Data encryption and handling described on the security page; privacy statement at
+    https://www.mollie.com/legal/privacy.
+regulatory:
+- regulator: De Nederlandsche Bank (DNB)
+  status: Licensed and supervised financial / e-money institution (Netherlands)
+- regulator: UK Financial Conduct Authority (FCA)
+  status: Licensed and supervised (United Kingdom)
+programs:
+  responsible_disclosure: https://www.mollie.com/legal/responsible-disclosure
+  bug_bounty: https://hackerone.com/mollie
+  acknowledgments: https://hackerone.com/mollie/thanks
+  security_contact: security@mollie.com
+  pgp_key: https://www.mollie.com/security.aexpk
+legal:
+  privacy: https://www.mollie.com/legal/privacy
+  user_agreement: https://www.mollie.com/legal/user-agreement
+  legal_index: https://www.mollie.com/legal
+evidence:
+- source: https://www.mollie.com/security
+  keywords: [soc 2 type 2, pci-dss level 1, isae 3402 type 2, dnb, fca, gdpr]
+- source: well-known/mollie-security.txt
+  keywords: [hackerone, responsible disclosure, security@mollie.com]
+probes:
+- url: https://trust.mollie.com
+  status: 000
+  result: does not resolve
+- url: https://www.mollie.com/trust
+  status: 404
+- url: https://www.mollie.com/compliance
+  status: 404
+- url: https://www.mollie.com/security
+  status: 200

@@ -1,0 +1,102 @@
+generated: '2026-08-01'
+method: searched
+source: https://docs.mollie.com/reference/webhooks-new
+spec_type: Webhooks
+asyncapi_published: false
+asyncapi_note: >-
+  Mollie publishes no AsyncAPI document. The event surface is real and documented — both
+  a legacy per-resource webhook and a next-generation subscription model — so it is
+  captured here as a webhook catalogue rather than fabricated as an AsyncAPI spec.
+surfaces:
+- name: Classic webhooks
+  style: per-resource webhookUrl
+  docs: https://docs.mollie.com/reference/webhooks
+  description: >-
+    A webhookUrl set on an individual payment, refund, subscription or order. Mollie
+    POSTs the resource id to that URL when the resource changes; the integration then
+    re-reads the resource from the API.
+- name: Next-gen webhooks (Webhook Subscriptions)
+  style: durable subscription
+  docs: https://docs.mollie.com/reference/webhooks-new
+  api: Webhooks API
+  description: >-
+    Permanently subscribe a URL to a set of event types instead of attaching a one-off
+    webhookUrl per payment. Managed with create-webhook, list-webhooks, get-webhook,
+    update-webhook, delete-webhook and test-webhook (POST /v2/webhooks/{webhookId}/ping).
+  operations: [create-webhook, list-webhooks, get-webhook, update-webhook, delete-webhook,
+    test-webhook]
+- name: Webhook Events API
+  style: retrospective inspection
+  docs: https://docs.mollie.com/reference/webhook-events-api
+  description: >-
+    Retrieve individual webhook events that Mollie generated and delivered, to inspect
+    event details, verify delivery behaviour and troubleshoot integrations.
+  operations: [get-webhook-event]
+delivery:
+  method: HTTP POST
+  payload_modes:
+  - name: full
+    description: >-
+      Snapshot payload with the full resource under _embedded.entity plus metadata. Always
+      used for subscriptions created via the public API.
+  - name: simple
+    description: >-
+      Basic payload with identifiers and the triggering event type only. Used when the
+      subscription is created via the Dashboard or an App.
+  envelope_fields: [resource, id, type, entityId, createdAt, _embedded.entity]
+  example_event_id_prefix: event_
+  best_practices: https://docs.mollie.com/reference/webhooks-best-practices
+event_types:
+  source: openapi/mollie-openapi-original.yml#/components/schemas/webhook-event-types
+  count: 36
+  wildcard: '*'
+  events:
+  - payment.paid
+  - payment.authorized
+  - payment.failed
+  - payment.canceled
+  - payment.expired
+  - payment.pending
+  - refund.queued
+  - refund.pending
+  - refund.processing
+  - refund.refunded
+  - refund.failed
+  - refund.canceled
+  - chargeback.received
+  - chargeback.reversed
+  - capture.succeeded
+  - capture.failed
+  - payment-link.paid
+  - balance-transaction.created
+  - payout.initiated
+  - payout.processing-at-bank
+  - payout.completed
+  - payout.canceled
+  - payout.failed
+  - sales-invoice.created
+  - sales-invoice.issued
+  - sales-invoice.canceled
+  - sales-invoice.paid
+  - sales-invoice.e-invoice-failed
+  - sales-invoice.e-invoice-issued
+  - business-account-transfer.requested
+  - business-account-transfer.initiated
+  - business-account-transfer.pending-review
+  - business-account-transfer.processed
+  - business-account-transfer.failed
+  - business-account-transfer.blocked
+  - business-account-transfer.returned
+per_api_webhook_docs:
+- https://docs.mollie.com/reference/payments-api-webhooks
+- https://docs.mollie.com/reference/refunds-api-webhooks
+- https://docs.mollie.com/reference/captures-api-webhooks
+- https://docs.mollie.com/reference/chargebacks-api-webhooks
+- https://docs.mollie.com/reference/payment-links-api-webhooks
+- https://docs.mollie.com/reference/payouts-api-webhooks
+- https://docs.mollie.com/reference/sales-invoices-api-webhooks
+- https://docs.mollie.com/reference/transfers-api-webhooks
+- https://docs.mollie.com/reference/connect-balance-transfers-api-webhooks
+testing:
+  ping_operation: test-webhook
+  note: Webhooks fire identically in test mode; see sandbox/mollie-sandbox.yml.

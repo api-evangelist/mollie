@@ -1,0 +1,325 @@
+generated: '2026-08-01'
+method: searched
+source: https://my.mollie.com/.well-known/oauth-authorization-server
+docs: https://docs.mollie.com/reference/oauth2
+also_derived_from: openapi/mollie-openapi-original.yml
+note: >-
+  61 scopes. All 42 scopes referenced in the OpenAPI operation security requirements are
+  a subset of the 61 published in Mollie's RFC 8414 authorization-server metadata; the
+  extra 19 cover product areas whose operations are not (yet) in the public OpenAPI —
+  disputes, files, persons, external accounts, pricing rates/segments, shipments, orders
+  and business-account draft transfers.
+schemes:
+- name: oAuth
+  source: openapi/mollie-openapi-original.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://my.mollie.com/oauth2/authorize
+    tokenUrl: https://api.mollie.com/oauth2/tokens
+    pkce: S256
+scopes:
+- scope: balance-reports.read
+  resource: balance-reports
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: balance-transfers.read
+  resource: balance-transfers
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: balance-transfers.write
+  resource: balance-transfers
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: balances.read
+  resource: balances
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: business-account-draft-transfers.read
+  resource: business-account-draft-transfers
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server]
+- scope: business-account-draft-transfers.write
+  resource: business-account-draft-transfers
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server]
+- scope: business-account-payee-verifications.write
+  resource: business-account-payee-verifications
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: business-account-transfers.read
+  resource: business-account-transfers
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: business-account-transfers.write
+  resource: business-account-transfers
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: business-accounts.read
+  resource: business-accounts
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: clients.read
+  resource: clients
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: clients.write
+  resource: clients
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: customers.read
+  resource: customers
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: customers.write
+  resource: customers
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: disputes.read
+  resource: disputes
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server]
+- scope: disputes.write
+  resource: disputes
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server]
+- scope: events.read
+  resource: events
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: external-accounts.read
+  resource: external-accounts
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server]
+- scope: external-accounts.write
+  resource: external-accounts
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server]
+- scope: files.read
+  resource: files
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server]
+- scope: files.write
+  resource: files
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server]
+- scope: invoices.read
+  resource: invoices
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: mandates.read
+  resource: mandates
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: mandates.write
+  resource: mandates
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: onboarding.read
+  resource: onboarding
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: onboarding.write
+  resource: onboarding
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: orders.read
+  resource: orders
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server]
+- scope: orders.write
+  resource: orders
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server]
+- scope: organizations.read
+  resource: organizations
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: organizations.write
+  resource: organizations
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server]
+- scope: payment-links.read
+  resource: payment-links
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: payment-links.write
+  resource: payment-links
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: payments.read
+  resource: payments
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: payments.write
+  resource: payments
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: payouts.read
+  resource: payouts
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: payouts.write
+  resource: payouts
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: persons.read
+  resource: persons
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server]
+- scope: persons.write
+  resource: persons
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server]
+- scope: pricing-rates.read
+  resource: pricing-rates
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server]
+- scope: pricing-rates.write
+  resource: pricing-rates
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server]
+- scope: pricing-segments.read
+  resource: pricing-segments
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server]
+- scope: pricing-segments.write
+  resource: pricing-segments
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server]
+- scope: profiles.read
+  resource: profiles
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: profiles.write
+  resource: profiles
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: refunds.read
+  resource: refunds
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: refunds.write
+  resource: refunds
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: sales-invoices.read
+  resource: sales-invoices
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: sales-invoices.write
+  resource: sales-invoices
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: sessions.read
+  resource: sessions
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: sessions.write
+  resource: sessions
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: settlements.read
+  resource: settlements
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: shipments.read
+  resource: shipments
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server]
+- scope: shipments.write
+  resource: shipments
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server]
+- scope: subscriptions.read
+  resource: subscriptions
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: subscriptions.write
+  resource: subscriptions
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: terminals.read
+  resource: terminals
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: terminals.write
+  resource: terminals
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: unmatched-credit-transfers.read
+  resource: unmatched-credit-transfers
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: unmatched-credit-transfers.write
+  resource: unmatched-credit-transfers
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: webhooks.read
+  resource: webhooks
+  access: read
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]
+- scope: webhooks.write
+  resource: webhooks
+  access: write
+  flows: [authorizationCode]
+  sources: [https://my.mollie.com/.well-known/oauth-authorization-server, openapi/mollie-openapi-original.yml]

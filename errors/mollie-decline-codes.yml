@@ -1,0 +1,380 @@
+generated: '2026-08-01'
+method: searched
+source: https://docs.mollie.com/reference/status-reasons
+envelope_field: statusReason.code
+envelope_note: Returned on the Payment object as statusReason, carrying a code and a human-readable message.
+  Card payments additionally surface a failureReason on the payment response.
+categories:
+- card-scheme
+- merchant
+- terminal
+- voucher
+counts:
+  card_scheme: 82
+  merchant: 15
+  terminal: 2
+  voucher: 20
+  total_rows: 119
+masking_note: Mollie publishes generic buyer-facing messaging for issuer declines; specific issuer reasons
+  such as suspected_fraud, lost_card and stolen_card should not be shown to the shopper. Mollie does not
+  publish an explicit masked/unmasked flag per code, so no per-code masking claim is recorded here.
+test_simulation: Card failure reasons are triggered in test mode with magic EUR amounts — see sandbox/mollie-sandbox.yml.
+decline_codes:
+- code: refer_to_card_issuer
+  category: card-scheme
+  meaning: Transaction was cancelled after being initially approved by the issuer, due to returns or other
+    reasons
+- code: invalid_merchant
+  category: card-scheme
+  meaning: Transaction was refused by the card issuer
+- code: capture_card
+  category: card-scheme
+  meaning: Card issuer requests to retain the card due to suspected counterfeit or theft
+- code: do_not_honor
+  category: card-scheme
+  meaning: Generic refusal with multiple possible causes
+- code: error
+  category: card-scheme
+  meaning: Payment could not be authorised and resulted in an error
+- code: partial_approval
+  category: card-scheme
+  meaning: Partial approval made but transaction not finalized
+- code: invalid_transaction
+  category: card-scheme
+  meaning: Transaction type is not supported by the card issuer
+- code: invalid_amount
+  category: card-scheme
+  meaning: Transaction amount is incorrect
+- code: invalid_issuer
+  category: card-scheme
+  meaning: Card issuer is not valid
+- code: lost_card
+  category: card-scheme
+  meaning: Card has been reported as lost
+- code: stolen_card
+  category: card-scheme
+  meaning: Card has been reported as stolen
+- code: insufficient_funds
+  category: card-scheme
+  meaning: Account associated with the card has insufficient funds
+- code: expired_card
+  category: card-scheme
+  meaning: Card has expired
+- code: invalid_pin
+  category: card-scheme
+  meaning: PIN entered is incorrect
+- code: transaction_not_permitted_to_cardholder
+  category: card-scheme
+  meaning: Transaction is not permitted for the cardholder
+- code: transaction_not_allowed_at_terminal
+  category: card-scheme
+  meaning: Transaction is not permitted at the acquirer terminal
+- code: exceeds_withdrawal_amount_limit
+  category: card-scheme
+  meaning: Transaction exceeds the withdrawal amount limit
+- code: restricted_card
+  category: card-scheme
+  meaning: Card is restricted
+- code: security_violation
+  category: card-scheme
+  meaning: There is a security violation
+- code: exceeds_withdrawal_count_limit
+  category: card-scheme
+  meaning: Transaction exceeds the withdrawal count limit
+- code: allowable_number_of_pin_tries_exceeded
+  category: card-scheme
+  meaning: Allowable number of PIN tries has been exceeded
+- code: no_reason_to_decline
+  category: card-scheme
+  meaning: There is no specific reason to decline the request
+- code: cannot_verify_pin
+  category: card-scheme
+  meaning: PIN cannot be verified
+- code: issuer_unavailable
+  category: card-scheme
+  meaning: The issuer is not available
+- code: unable_to_route_transaction
+  category: card-scheme
+  meaning: Transaction cannot be routed
+- code: duplicate_transaction
+  category: card-scheme
+  meaning: Duplicate transaction detected
+- code: system_malfunction
+  category: card-scheme
+  meaning: There is a system malfunction
+- code: honor_with_id
+  category: card-scheme
+  meaning: Honor with ID
+- code: invalid_card_number
+  category: card-scheme
+  meaning: Card number is incorrect
+- code: format_error
+  category: card-scheme
+  meaning: Format error in the transaction
+- code: contact_card_issuer
+  category: card-scheme
+  meaning: Card issuer needs to be contacted
+- code: pin_not_changed
+  category: card-scheme
+  meaning: PIN not changed
+- code: invalid_nonexistent_to_account_specified
+  category: card-scheme
+  meaning: Invalid or nonexistent 'To Account' specified
+- code: invalid_nonexistent_from_account_specified
+  category: card-scheme
+  meaning: Invalid or nonexistent 'From Account' specified
+- code: invalid_nonexistent_account_specified
+  category: card-scheme
+  meaning: Invalid or nonexistent account was specified
+- code: lifecycle_related
+  category: card-scheme
+  meaning: Transaction was declined due to life cycle issues
+- code: domestic_debit_transaction_not_allowed
+  category: card-scheme
+  meaning: Domestic debit transaction not allowed
+- code: policy_related
+  category: card-scheme
+  meaning: Transaction was declined due to policy reasons
+- code: fraud_security_related
+  category: card-scheme
+  meaning: Transaction was declined due to fraud or security concerns
+- code: invalid_authorization_life_cycle
+  category: card-scheme
+  meaning: Invalid authorization life cycle
+- code: purchase_amount_only_no_cash_back_allowed
+  category: card-scheme
+  meaning: Purchase amount only, no cash back allowed
+- code: cryptographic_failure
+  category: card-scheme
+  meaning: There is a cryptographic failure
+- code: unacceptable_pin
+  category: card-scheme
+  meaning: Unacceptable PIN
+- code: refer_to_card_issuer_special_condition
+  category: card-scheme
+  meaning: Refer to card issuer, special condition
+- code: pick_up_card_special_condition
+  category: card-scheme
+  meaning: Card issuer requests to retain the card
+- code: vip_approval
+  category: card-scheme
+  meaning: V.I.P Approval
+- code: invalid_account_number
+  category: card-scheme
+  meaning: Account number is incorrect
+- code: re_enter_transaction
+  category: card-scheme
+  meaning: Transaction should be re-entered
+- code: no_action_taken
+  category: card-scheme
+  meaning: No action taken (unable to back out prior transaction)
+- code: unable_to_locate_record
+  category: card-scheme
+  meaning: Unable to locate record in file, or account number missing
+- code: file_temporarily_unavailable
+  category: card-scheme
+  meaning: File is temporarily unavailable
+- code: no_credit_account
+  category: card-scheme
+  meaning: No credit account
+- code: closed_account
+  category: card-scheme
+  meaning: Account associated with the card is closed
+- code: no_checking_account
+  category: card-scheme
+  meaning: No checking account
+- code: no_savings_account
+  category: card-scheme
+  meaning: No savings account
+- code: suspected_fraud
+  category: card-scheme
+  meaning: Transaction is suspected of fraud
+- code: transaction_does_not_fulfill_aml_requirement
+  category: card-scheme
+  meaning: Transaction does not fulfill AML requirement
+- code: pin_data_required
+  category: card-scheme
+  meaning: PIN data is required
+- code: unable_to_locate_previous_message
+  category: card-scheme
+  meaning: Unable to locate previous message
+- code: previous_message_located_inconsistent_data
+  category: card-scheme
+  meaning: Previous message located, but reversal data inconsistent
+- code: blocked_first_used
+  category: card-scheme
+  meaning: Transaction from new cardholder, card not properly unblocked
+- code: transaction_reversed
+  category: card-scheme
+  meaning: Transaction reversed
+- code: credit_issuer_unavailable
+  category: card-scheme
+  meaning: Credit issuer is unavailable
+- code: pin_cryptographic_error_found
+  category: card-scheme
+  meaning: PIN cryptographic error found during decryption
+- code: negative_online_cam_result
+  category: card-scheme
+  meaning: Transaction was declined due to negative online CAM results
+- code: violation_of_law
+  category: card-scheme
+  meaning: Transaction cannot be completed due to violation of law
+- code: force_stip
+  category: card-scheme
+  meaning: Force STIP
+- code: cash_service_not_available
+  category: card-scheme
+  meaning: Cash service is not available
+- code: cashback_request_exceeds_issuer_limit
+  category: card-scheme
+  meaning: Cashback request exceeds the issuer limit
+- code: decline_for_cvv2_failure
+  category: card-scheme
+  meaning: Transaction was declined due to CVV2 failure
+- code: transaction_amount_exceeds_pre_authorized_amount
+  category: card-scheme
+  meaning: Transaction amount exceeds pre-authorized approval amount
+- code: invalid_biller_information
+  category: card-scheme
+  meaning: Invalid biller information
+- code: pin_change_unblock_request_declined
+  category: card-scheme
+  meaning: PIN change/unblock request declined
+- code: unsafe_pin
+  category: card-scheme
+  meaning: Unsafe PIN
+- code: card_authentication_failed
+  category: card-scheme
+  meaning: Card authentication failed, or offline PIN authentication interrupted
+- code: stop_payment_order
+  category: card-scheme
+  meaning: There is a stop payment order
+- code: revocation_of_authorization
+  category: card-scheme
+  meaning: Revocation of authorisation order
+- code: revocation_of_all_authorizations
+  category: card-scheme
+  meaning: Revocation of all authorisation orders
+- code: forward_to_issuer_xa
+  category: card-scheme
+  meaning: Forward to issuer
+- code: forward_to_issuer_xd
+  category: card-scheme
+  meaning: Forward to issuer
+- code: unable_to_go_online
+  category: card-scheme
+  meaning: Transaction was declined offline
+- code: additional_customer_authentication_required
+  category: card-scheme
+  meaning: Additional customer authentication required
+- code: merchant_id_not_found
+  category: merchant
+  meaning: Merchant ID not found
+- code: merchant_account_closed
+  category: merchant
+  meaning: Merchant account closed
+- code: terminal_id_not_found
+  category: merchant
+  meaning: Terminal ID not found
+- code: terminal_closed
+  category: merchant
+  meaning: Terminal closed
+- code: invalid_category_code
+  category: merchant
+  meaning: Invalid category code
+- code: invalid_currency
+  category: merchant
+  meaning: Invalid currency
+- code: missing_cvv2_cvc2
+  category: merchant
+  meaning: Missing CVV2/CVC2
+- code: cvv2_not_allowed
+  category: merchant
+  meaning: CVV2 not allowed
+- code: merchant_not_registered_vbv
+  category: merchant
+  meaning: Merchant not registered for Verified by Visa / Secure Code
+- code: merchant_not_registered_for_amex
+  category: merchant
+  meaning: Merchant not registered for Amex
+- code: transaction_not_permitted_at_terminal
+  category: merchant
+  meaning: Transaction not permitted at terminal
+- code: agreement_terminal_not_related
+  category: merchant
+  meaning: Agreement and terminal are not related
+- code: invalid_processor_id
+  category: merchant
+  meaning: Invalid processor ID
+- code: invalid_merchant_data
+  category: merchant
+  meaning: Invalid merchant data (Name, City or Postal Code)
+- code: sub_merchant_account_closed
+  category: merchant
+  meaning: Sub-merchant account closed
+- code: terminal_busy
+  category: terminal
+  meaning: Another transaction was already ongoing on the terminal
+- code: terminal_unreachable
+  category: terminal
+  meaning: Transaction did not reach the terminal within 30 seconds
+- code: service_failed
+  category: voucher
+  meaning: Service failed
+- code: invalid_operation
+  category: voucher
+  meaning: Invalid operation
+- code: authorization_error
+  category: voucher
+  meaning: Authorization failed, not logged in
+- code: login_failed_without_reason
+  category: voucher
+  meaning: Login failed (reason not specified)
+- code: invalid_retailer
+  category: voucher
+  meaning: Invalid or unknown retailer
+- code: refer_to_card_issuer
+  category: voucher
+  meaning: Transaction was cancelled after being initially approved by the issuer
+- code: card_does_not_exist
+  category: voucher
+  meaning: Card or customer does not exist
+- code: expired_card
+  category: voucher
+  meaning: Card has expired
+- code: card_is_blocked
+  category: voucher
+  meaning: Card is blocked
+- code: insufficient_funds
+  category: voucher
+  meaning: Account associated with the card has insufficient funds
+- code: invalid_card_id
+  category: voucher
+  meaning: Invalid CardId
+- code: card_is_transferred
+  category: voucher
+  meaning: Card is transferred
+- code: card_is_not_active
+  category: voucher
+  meaning: Card is not active
+- code: incorrect_purchase_value
+  category: voucher
+  meaning: Incorrect activation or purchase value
+- code: card_not_available
+  category: voucher
+  meaning: Card not available
+- code: wrong_currency
+  category: voucher
+  meaning: Wrong currency
+- code: login_failed_unknown_user
+  category: voucher
+  meaning: 'Login failed: unknown user'
+- code: login_failed_invalid_password
+  category: voucher
+  meaning: 'Login failed: invalid password'
+- code: invalid_pin
+  category: voucher
+  meaning: Invalid PIN
+- code: invalid_ean_code
+  category: voucher
+  meaning: Invalid EAN code

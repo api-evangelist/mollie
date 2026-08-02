@@ -1,0 +1,212 @@
+generated: '2026-08-01'
+method: derived
+source: >-
+  mcp/mollie-mcp.yml (tool names from github.com/mollie/ai agent-toolkit) bound to
+  openapi/mollie-openapi-original.yml operationIds
+surfaces:
+  openapi:
+    file: openapi/mollie-openapi-original.yml
+    version: 3.1.0
+    server: https://api.mollie.com
+    operations: 124
+    gated: false
+  mcp:
+    url: https://mcp.mollie.com/mcp
+    transport: http
+    gated: true
+    note: >-
+      Anonymous tools/list returns 401 with an RFC 9728 oauth-protected-resource
+      challenge, so per-tool inputSchema could not be read. Bindings below are by
+      name and semantics against Mollie's published agent-toolkit tool set; each bound
+      tool inherits its real input contract from the referenced OpenAPI operation's
+      parameters + requestBody.
+  graphql:
+    present: false
+crosswalk:
+- tool: list_payments
+  category: payments
+  rest: [list-payments]
+  binding: rest
+  confidence: high
+- tool: get_payment
+  category: payments
+  rest: [get-payment]
+  binding: rest
+  confidence: high
+- tool: create_payment
+  category: payments
+  rest: [create-payment]
+  binding: rest
+  confidence: high
+  note: Write operation; Idempotency-Key header is accepted on the backing operation.
+- tool: list_customers
+  category: customers
+  rest: [list-customers]
+  binding: rest
+  confidence: high
+- tool: get_customer
+  category: customers
+  rest: [get-customer]
+  binding: rest
+  confidence: high
+- tool: create_customer
+  category: customers
+  rest: [create-customer]
+  binding: rest
+  confidence: high
+- tool: list_refunds
+  category: refunds
+  rest: [list-all-refunds, list-refunds]
+  binding: rest
+  confidence: medium
+  note: >-
+    Fans out. Mollie exposes both an organization-wide refund list (/v2/refunds) and a
+    per-payment list (/v2/payments/{paymentId}/refunds); which one the tool calls depends
+    on whether a paymentId argument is supplied.
+- tool: create_refund
+  category: refunds
+  rest: [create-refund]
+  binding: rest
+  confidence: high
+  note: Requires paymentId; 409 is returned for duplicate refund requests in short succession.
+- tool: list_balances
+  category: balances
+  rest: [list-balances]
+  binding: rest
+  confidence: high
+- tool: get_balance
+  category: balances
+  rest: [get-balance, get-primary-balance]
+  binding: rest
+  confidence: medium
+  note: get-primary-balance is the /v2/balances/primary alias for the default balance.
+- tool: list_methods
+  category: methods
+  rest: [list-methods, list-all-methods]
+  binding: rest
+  confidence: medium
+  note: list-all-methods (/v2/methods/all) returns every method regardless of profile activation.
+- tool: list_settlements
+  category: settlements
+  rest: [list-settlements]
+  binding: rest
+  confidence: high
+- tool: get_settlement
+  category: settlements
+  rest: [get-settlement, get-open-settlement, get-next-settlement]
+  binding: rest
+  confidence: medium
+  note: The open/next settlement aliases resolve to the same entity shape.
+- tool: list_subscriptions
+  category: subscriptions
+  rest: [list-all-subscriptions, list-subscriptions]
+  binding: rest
+  confidence: medium
+  note: >-
+    /v2/subscriptions is organization-wide; /v2/customers/{customerId}/subscriptions is
+    the per-customer list.
+- tool: create_subscription
+  category: subscriptions
+  rest: [create-subscription]
+  binding: rest
+  confidence: high
+  note: >-
+    Requires customerId and an existing mandate. Mollie's idempotency guidance names
+    subscription creation as one of the three flows where retrying without an
+    Idempotency-Key can double-charge.
+- tool: list_sales_invoices
+  category: sales-invoices
+  rest: [list-sales-invoices]
+  binding: rest
+  confidence: high
+- tool: get_sales_invoice
+  category: sales-invoices
+  rest: [get-sales-invoice]
+  binding: rest
+  confidence: high
+- tool: create_sales_invoice
+  category: sales-invoices
+  rest: [create-sales-invoice]
+  binding: rest
+  confidence: high
+- tool: update_sales_invoice
+  category: sales-invoices
+  rest: [update-sales-invoice]
+  binding: rest
+  confidence: high
+mcp_only: []
+mcp_only_note: >-
+  No MCP-only capability observed. Every published agent tool maps onto a public REST
+  operation. This could not be exhaustively confirmed because tools/list is auth-gated;
+  Mollie additionally documents Captures, Invoices, Mandates, Terminals, Webhooks and
+  Webhook Events coverage on the MCP server for which no agent-toolkit tool file exists,
+  so the live server likely exposes more tools than the toolkit does.
+rest_only:
+- capability: Payment lifecycle mutation
+  operations: [update-payment, cancel-payment, release-authorization]
+- capability: Payment links
+  operations: [create-payment-link, list-payment-links, get-payment-link, update-payment-link,
+    delete-payment-link, get-payment-link-payments]
+- capability: Captures
+  operations: [create-capture, list-captures, get-capture]
+- capability: Chargebacks
+  operations: [list-chargebacks, get-chargeback, list-all-chargebacks]
+- capability: Mandates
+  operations: [create-mandate, list-mandates, get-mandate, revoke-mandate]
+- capability: Subscription mutation
+  operations: [get-subscription, update-subscription, cancel-subscription, list-subscription-payments]
+- capability: Customer payments
+  operations: [create-customer-payment, list-customer-payments, update-customer, delete-customer]
+- capability: Refund lifecycle
+  operations: [get-refund, cancel-refund]
+- capability: Method activation
+  operations: [get-method, enable-method, disable-method, enable-method-issuer, disable-method-issuer]
+- capability: Profiles
+  operations: [create-profile, list-profiles, get-profile, update-profile, delete-profile,
+    get-current-profile]
+- capability: Organizations and permissions
+  operations: [get-organization, get-current-organization, get-partner-status, list-permissions,
+    get-permission]
+- capability: Onboarding, capabilities, clients (Mollie Connect)
+  operations: [get-onboarding-status, submit-onboarding-data, list-capabilities, list-clients,
+    get-client, create-client-link]
+- capability: Balances detail
+  operations: [get-balance-report, list-balance-transactions]
+- capability: Settlement detail
+  operations: [list-settlement-payments, list-settlement-captures, list-settlement-refunds,
+    list-settlement-chargebacks]
+- capability: Payouts
+  operations: [create-payout, list-payouts, get-payout, cancel-payout]
+- capability: Invoices
+  operations: [list-invoices, get-invoice]
+- capability: Sales invoice deletion
+  operations: [delete-sales-invoice]
+- capability: Business accounts and transfers
+  operations: [list-business-accounts, get-business-account, list-business-account-transactions,
+    get-business-account-transaction, create-transfer, get-transfer, verify-payee]
+- capability: Connect balance transfers
+  operations: [create-connect-balance-transfer, list-connect-balance-transfers, get-connect-balance-transfer]
+- capability: Unmatched credit transfers
+  operations: [list-unmatched-credit-transfers, get-unmatched-credit-transfer, match-unmatched-credit-transfer,
+    return-unmatched-credit-transfer]
+- capability: Checkout sessions (Components beta)
+  operations: [create-session, get-session]
+- capability: Terminals and pairing
+  operations: [list-terminals, get-terminal, terminals-request-pairing-code, terminals-list-pairing-codes,
+    terminals-get-pairing-code, terminals-revoke-pairing-code]
+- capability: Delayed routing
+  operations: [payment-create-route, payment-list-routes, payment-get-route]
+- capability: Webhook subscriptions and events
+  operations: [create-webhook, list-webhooks, get-webhook, update-webhook, delete-webhook,
+    test-webhook, get-webhook-event]
+- capability: Wallets
+  operations: [request-apple-pay-payment-session]
+- capability: OAuth token management
+  operations: [oauth-generate-tokens, oauth-revoke-tokens]
+coverage:
+  tools_named: 19
+  tools_bound: 19
+  mcp_only: 0
+  rest_operations_total: 124
+  rest_operations_with_tool: 26
+  rest_operations_without_tool: 98

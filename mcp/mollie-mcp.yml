@@ -1,0 +1,134 @@
+generated: '2026-08-01'
+method: searched
+status: published
+source: https://docs.mollie.com/docs/mollie-mcp-server
+announcement: https://www.mollie.com/news/mollie-launches-ai-ready-mcp-server
+server:
+  name: mollie
+  transport: http
+  url: https://mcp.mollie.com/mcp
+  official: true
+authentication:
+  scheme: bearer
+  token_type: Mollie advanced access token (access_...) or OAuth 2.0 access token
+  env_var: MOLLIE_API_OAUTH_ORG_TOKEN
+  minimum_scope: profile.read
+  note: >-
+    Additional per-API scopes are required for the tools that touch those APIs
+    (for example payments.read for payment tools). See scopes/mollie-scopes.yml.
+  authorization_server: https://my.mollie.com
+  protected_resource_metadata: https://mcp.mollie.com/.well-known/oauth-protected-resource
+client_config:
+  claude_desktop: |
+    {
+      "mcpServers": {
+        "Mollie": {
+          "command": "npx",
+          "args": [
+            "mcp-remote",
+            "https://mcp.mollie.com/mcp",
+            "--header",
+            "Authorization: Bearer ${MOLLIE_API_OAUTH_ORG_TOKEN}"
+          ],
+          "env": {
+            "MOLLIE_API_OAUTH_ORG_TOKEN": "PUT_YOUR_OWN_ORG_TOKEN_HERE"
+          }
+        }
+      }
+    }
+  claude_code_plugin: |
+    claude plugin marketplace add mollie/ai
+    claude plugin install mollie@mollie
+api_coverage:
+- Balances API
+- Captures API
+- Customers API
+- Invoices API
+- Mandates API
+- Methods API
+- Payments API
+- Payment Links API
+- Settlements API
+- Subscriptions API
+- Terminals API
+- Webhooks API
+- Webhook Events API
+introspection:
+  attempted: '2026-08-01'
+  method: 'POST {"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+  http_status: 401
+  www_authenticate: Bearer resource_metadata="https://mcp.mollie.com/.well-known/oauth-protected-resource"
+  gated: true
+  note: >-
+    Anonymous tools/list is refused. The live tool list with real inputSchema requires
+    an authenticated introspection. The tool names recorded below are NOT from the MCP
+    server itself — they are the tool names Mollie publishes in its official agent
+    toolkit (github.com/mollie/ai, packages/agent-toolkit/src/tools/*.ts), which covers
+    the same product surface. Treat them as the published agent tool vocabulary, not as
+    a verified mcp/tools-list response.
+tools:
+  source: https://github.com/mollie/ai/tree/main/packages/agent-toolkit/src/tools
+  verified_against_mcp: false
+  list:
+  - name: list_payments
+    category: payments
+    source_operation: openapi/mollie-openapi-original.yml#list-payments
+  - name: get_payment
+    category: payments
+    source_operation: openapi/mollie-openapi-original.yml#get-payment
+  - name: create_payment
+    category: payments
+    source_operation: openapi/mollie-openapi-original.yml#create-payment
+  - name: list_customers
+    category: customers
+    source_operation: openapi/mollie-openapi-original.yml#list-customers
+  - name: get_customer
+    category: customers
+    source_operation: openapi/mollie-openapi-original.yml#get-customer
+  - name: create_customer
+    category: customers
+    source_operation: openapi/mollie-openapi-original.yml#create-customer
+  - name: list_refunds
+    category: refunds
+    source_operation: openapi/mollie-openapi-original.yml#list-all-refunds
+  - name: create_refund
+    category: refunds
+    source_operation: openapi/mollie-openapi-original.yml#create-refund
+  - name: list_balances
+    category: balances
+    source_operation: openapi/mollie-openapi-original.yml#list-balances
+  - name: get_balance
+    category: balances
+    source_operation: openapi/mollie-openapi-original.yml#get-balance
+  - name: list_methods
+    category: methods
+    source_operation: openapi/mollie-openapi-original.yml#list-methods
+  - name: list_settlements
+    category: settlements
+    source_operation: openapi/mollie-openapi-original.yml#list-settlements
+  - name: get_settlement
+    category: settlements
+    source_operation: openapi/mollie-openapi-original.yml#get-settlement
+  - name: list_subscriptions
+    category: subscriptions
+    source_operation: openapi/mollie-openapi-original.yml#list-all-subscriptions
+  - name: create_subscription
+    category: subscriptions
+    source_operation: openapi/mollie-openapi-original.yml#create-subscription
+  - name: list_sales_invoices
+    category: sales-invoices
+    source_operation: openapi/mollie-openapi-original.yml#list-sales-invoices
+  - name: get_sales_invoice
+    category: sales-invoices
+    source_operation: openapi/mollie-openapi-original.yml#get-sales-invoice
+  - name: create_sales_invoice
+    category: sales-invoices
+    source_operation: openapi/mollie-openapi-original.yml#create-sales-invoice
+  - name: update_sales_invoice
+    category: sales-invoices
+    source_operation: openapi/mollie-openapi-original.yml#update-sales-invoice
+resources:
+  documented: true
+  note: >-
+    Mollie describes the MCP server as also exposing a resources component providing
+    access to developer documentation and API references. Not verified anonymously.

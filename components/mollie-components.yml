@@ -1,0 +1,88 @@
+generated: '2026-08-01'
+method: searched
+source: https://docs.mollie.com/docs/mollie-components
+also:
+- https://docs.mollie.com/docs/custom-checkout-components
+- https://docs.mollie.com/reference/molliejs
+- https://docs.mollie.com/docs/hosted-checkout
+loaders:
+- name: Mollie.js
+  url: https://js.mollie.com/v1/mollie.js
+  type: browser script
+  placement: just before the closing </body> tag
+  csp: >-
+    Whitelist js.mollie.com for script-src and frame-src, and allow inline styles
+    (style-src 'unsafe-inline'). Mollie recommends a strict CSP on the checkout.
+  init: 'const mollie = Mollie(profileId, { locale, testmode });'
+families:
+- name: Mollie Components (card fields)
+  status: generally available
+  docs: https://docs.mollie.com/docs/mollie-components
+  purpose: >-
+    Embed the card-holder data fields directly in your own checkout while staying
+    PCI-DSS SAQ-A compliant. Mollie.js never gives the integrator access to card-holder
+    data; on submit it exchanges the entered data for a cardToken.
+  outputs:
+    token: cardToken
+    consumed_by: openapi/mollie-openapi-original.yml#create-payment
+  flow:
+  - Add Mollie.js to the checkout
+  - Initialize the Mollie object with the profile ID
+  - Create and mount the card form or the separate input fields
+  - Listen for submit and request the cardToken
+  - Post the cardToken to your backend
+  - Create a card payment with the cardToken via create-payment
+  - Redirect the shopper to _links.checkout for 3-D Secure
+  examples: https://github.com/mollie/components-examples
+- name: Custom checkout with Components
+  status: private beta
+  contact: mollie-components-beta@mollie.com
+  docs: https://docs.mollie.com/docs/custom-checkout-components
+  purpose: >-
+    A suite of pre-built embeddable UI components covering card input, 3DS challenges and
+    express checkout, mounted into your own checkout page.
+  powered_by: Checkout Sessions API
+  backing_operations: [create-session, get-session]
+  flow:
+  - Server creates a Checkout Session with amount, line items and redirect URL
+  - Client Access Token is passed to the front end
+  - Front end initializes Mollie JS and mounts a component
+  - Customer completes payment in the component and is redirected
+  - Server retrieves the Checkout Session to read the final status
+  - Mollie sends a Payment webhook that can trigger fulfilment
+- name: Express Component
+  status: beta
+  docs: https://docs.mollie.com/docs/collect-customer-details-with-express-component
+  purpose: Collect the customer's contact and address information as part of an express
+    checkout flow.
+  note: PayPal was added to the Express Component in beta (see changelog/mollie-changelog.yml).
+- name: Hosted checkout
+  status: generally available
+  docs: https://docs.mollie.com/docs/hosted-checkout
+  purpose: >-
+    Fully Mollie-hosted payment pages. Not a client-side component library, but the
+    zero-integration alternative to Components — redirect the shopper to the checkout URL
+    returned in _links.checkout.
+- name: Direct wallet integrations
+  status: generally available
+  docs:
+  - https://docs.mollie.com/docs/direct-integration-of-apple-pay
+  - https://docs.mollie.com/docs/direct-integration-of-google-pay
+  purpose: >-
+    Render the native Apple Pay / Google Pay buttons in your own front end. Apple Pay
+    merchant validation is backed by request-apple-pay-payment-session.
+  backing_operations: [request-apple-pay-payment-session]
+native_sdks:
+- name: mollie-components-ios
+  url: https://github.com/mollie/mollie-components-ios
+  platform: iOS (Swift)
+- name: demo-checkout-ios
+  url: https://github.com/mollie/demo-checkout-ios
+  platform: iOS (Swift) — reference implementation
+- name: demo-checkout-android
+  url: https://github.com/mollie/demo-checkout-android
+  platform: Android (Kotlin) — reference implementation
+testing:
+  note: >-
+    Components accept the same test card numbers and magic amounts as the hosted checkout;
+    see sandbox/mollie-sandbox.yml.

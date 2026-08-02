@@ -1,0 +1,65 @@
+generated: '2026-08-01'
+method: searched
+source: https://docs.mollie.com/reference/overview
+derived_from: openapi/mollie-openapi-original.yml
+versioning:
+  scheme: uri-path
+  current: v2
+  path_prefix: /v2
+  spec: https://github.com/mollie/openapi
+  spec_version: OpenAPI 3.1.0
+  docs: https://docs.mollie.com/reference/overview
+  note: >-
+    No header- or date-pinned versioning. Additive changes (new fields, new enum values,
+    new payment methods) ship into v2 continuously and are announced in the changelog.
+deprecation:
+  policy_url: null
+  formal_policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  practice: >-
+    Mollie deprecates by superseding: the reference page for a retired surface carries a
+    banner reading "We no longer recommend using the <X> API. Please refer to the <Y> API
+    instead", and a migration guide is published. The superseded endpoints stay callable
+    and are simply removed from the current public OpenAPI document. No RFC 8594 Sunset or
+    Deprecation response headers and no dated end-of-life schedule were found.
+  observed_superseded_surfaces:
+  - name: Orders API
+    superseded_by: Payments API
+    migration_guide: https://docs.mollie.com/docs/migrating-from-orders-to-payments
+    still_documented: true
+    in_current_openapi: false
+    operations_affected: [create-order, cancel-order, cancel-order-lines, update-order-line,
+      manage-order-lines, create-order-payment, create-order-refund]
+  - name: Submit onboarding data
+    superseded_by: Client Links API
+    still_documented: true
+    in_current_openapi: true
+    operations_affected: [submit-onboarding-data]
+  deprecated_operations_in_spec: []
+  deprecated_operations_note: >-
+    Zero of the 124 operations in openapi/mollie-openapi-original.yml carry deprecated:
+    true. Mollie signals deprecation in prose, not in the machine-readable contract — an
+    agent reading only the spec cannot tell that submit-onboarding-data is discouraged.
+beta_surfaces:
+  note: Marked "Beta" or "private beta" in the reference; the specification may still change.
+  surfaces:
+  - Sessions API (Checkout Sessions / custom checkout Components) — private beta
+  - Capabilities API — beta
+  - Transfers API (Business Account transfers) — beta
+  - Flexible bank transfer reconciliation — beta
+  - Express Component — beta
+status_page: https://status.mollie.com/
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    No public uptime SLA or uptime target found on the website or in the docs. Commercial
+    terms live in the user agreement at https://www.mollie.com/legal/user-agreement.
+changelog: changelog/mollie-changelog.yml
+roadmap:
+  published: false
+  note: No public product roadmap found at docs.mollie.com/docs/roadmap or mollie.com/roadmap (both 404).
+support:
+  help_center: https://help.mollie.com/hc/en-us
+  developer_docs: https://docs.mollie.com/

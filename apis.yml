@@ -1,23 +1,201 @@
 aid: mollie
 name: Mollie
-description: 'Mollie is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'Mollie B.V. is a Dutch payment service provider headquartered in Amsterdam
+  that lets businesses across Europe accept online, point-of-sale and recurring payments
+  through a single REST API and hosted checkout. The Mollie API is an HTTP+HAL (application/hal+json)
+  interface at api.mollie.com covering Payments, Payment Links, Refunds, Chargebacks,
+  Captures, Customers, Mandates, Subscriptions, Methods, Sessions, Terminals, Balances,
+  Settlements, Payouts, Invoices, Sales Invoices, Business Accounts, Transfers, Onboarding,
+  Capabilities, Clients, Client Links, Profiles, Organizations, Permissions, Delayed
+  Routing, Verify Payee, Wallets, Webhooks and Webhook Events. Mollie supports European
+  payment methods including iDEAL, Bancontact, SEPA Direct Debit, Klarna, PayPal, Apple
+  Pay, Google Pay, BLIK, Przelewy24, TWINT, Vipps, MobilePay, Swish and cards. Mollie
+  publishes an OpenAPI 3.1 specification, official SDKs for PHP, Node/TypeScript, Python,
+  Ruby, Go, Java and C#/.NET, an OAuth 2.0 Connect platform for marketplaces, next-gen
+  webhook subscriptions, and a hosted Model Context Protocol server plus an official
+  agent toolkit and Agent Skill for AI-driven integrations.'
 url: https://raw.githubusercontent.com/api-evangelist/mollie/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
+x-tier: enriched
 x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-01'
 modified: '2026-08-01'
 tags:
 - Company
-apis: []
+- Payments
+- Fintech
+- Financial Services
+- Checkout
+- Ecommerce
+- Subscriptions
+- Point of Sale
+- Europe
+- Netherlands
+image: https://www.mollie.com/favicon.ico
+apis:
+- aid: mollie:mollie-api
+  name: Mollie API
+  description: 'The Mollie API is a REST API using HAL (application/hal+json) over
+    HTTPS at api.mollie.com. It covers 124 documented operations across 33 API groups
+    — Payments, Payment Links, Refunds, Chargebacks, Captures, Customers, Mandates,
+    Subscriptions, Methods, Sessions, Terminals, Balances, Settlements, Payouts, Invoices,
+    Sales Invoices, Business Accounts, Transfers, Verify Payee, Onboarding, Capabilities,
+    Clients, Client Links, Profiles, Organizations, Permissions, Delayed Routing, Wallets,
+    Balance Transfers, Unmatched Credit Transfers, Webhooks, Webhook Events and OAuth.
+    Authentication is by bearer API key (test_/live_ prefixed), advanced access token
+    (access_ prefixed) or OAuth 2.0 authorization code with 60+ scopes. Every operation
+    accepts an Idempotency-Key header, and list endpoints use cursor pagination.'
+  humanURL: https://docs.mollie.com/reference/overview
+  baseURL: https://api.mollie.com
+  tags:
+  - Payments
+  - Checkout
+  - Refunds
+  - Subscriptions
+  - Settlements
+  properties:
+  - type: OpenAPI
+    url: openapi/mollie-openapi-original.yml
+  - type: Documentation
+    url: https://docs.mollie.com/
+  - type: APIReference
+    url: https://docs.mollie.com/reference/overview
+  - type: Overlay
+    url: overlays/mollie-api-overlay.yaml
+  - type: Authentication
+    url: authentication/mollie-authentication.yml
+  - type: OAuthScopes
+    url: scopes/mollie-scopes.yml
+  - type: ErrorCatalog
+    url: errors/mollie-problem-types.yml
+  - type: DeclineCodes
+    url: errors/mollie-decline-codes.yml
+  - type: Conventions
+    url: conventions/mollie-conventions.yml
+  - type: Idempotency
+    url: conventions/mollie-conventions.yml
+  - type: DataModel
+    url: data-model/mollie-data-model.yml
+  - type: Webhooks
+    url: asyncapi/mollie-webhooks.yml
+- aid: mollie:mollie-mcp
+  name: Mollie MCP Server
+  description: 'Mollie''s official hosted Model Context Protocol server at mcp.mollie.com/mcp.
+    It exposes Mollie API capabilities to AI agents over streamable HTTP, authenticated
+    with an OAuth 2.0 advanced access token (Bearer) requiring at minimum the profile.read
+    scope. Coverage spans the Balances, Captures, Customers, Invoices, Mandates, Methods,
+    Payments, Payment Links, Settlements, Subscriptions, Terminals, Webhooks and Webhook
+    Events APIs. Anonymous tools/list is refused with a 401 and an RFC 9728 oauth-protected-resource
+    challenge pointing at my.mollie.com as the authorization server.'
+  humanURL: https://docs.mollie.com/docs/mollie-mcp-server
+  baseURL: https://mcp.mollie.com/mcp
+  tags:
+  - MCP
+  - AI Agents
+  - Payments
+  properties:
+  - type: MCPServer
+    url: mcp/mollie-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/mollie-tool-crosswalk.yml
+  - type: Documentation
+    url: https://docs.mollie.com/docs/mollie-mcp-server
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/mollie-domain-security.yml
 - type: Website
-  url: https://forgeglobal.com/mollie_stock/
+  url: https://www.mollie.com/
+- type: DeveloperPortal
+  url: https://docs.mollie.com/
+- type: Documentation
+  url: https://docs.mollie.com/
+- type: APIReference
+  url: https://docs.mollie.com/reference/overview
+- type: GettingStarted
+  url: https://docs.mollie.com/docs/getting-started
+- type: Support
+  url: https://help.mollie.com/hc/en-us
+- type: Blog
+  url: https://www.mollie.com/news
+- type: GitHubOrganization
+  url: https://github.com/mollie
+- type: Pricing
+  url: https://www.mollie.com/pricing
+- type: SignUp
+  url: https://my.mollie.com/dashboard/signup
+- type: Login
+  url: https://my.mollie.com/
+- type: TermsOfService
+  url: https://www.mollie.com/legal/user-agreement
+- type: PrivacyPolicy
+  url: https://www.mollie.com/legal/privacy
+- type: Postman
+  url: https://www.postman.com/molliedev/mollie-api/
+- type: StatusPage
+  url: https://status.mollie.com/
+- type: Lifecycle
+  url: lifecycle/mollie-lifecycle.yml
+- type: ChangeLog
+  url: changelog/mollie-changelog.yml
+- type: Packages
+  url: packages/mollie-packages.yml
+- type: SDKs
+  url: packages/mollie-packages.yml
+- type: WellKnown
+  url: well-known/mollie-well-known.yml
+- type: SecurityTxt
+  url: well-known/mollie-security.txt
+- type: Security
+  url: https://www.mollie.com/legal/responsible-disclosure
+- type: VulnerabilityDisclosure
+  url: security/mollie-vulnerability-disclosure.yml
+- type: TrustCenter
+  url: security/mollie-trust-center.yml
+- type: Compliance
+  url: https://www.mollie.com/security
+- type: Conformance
+  url: conformance/mollie-conformance.yml
+- type: Sandbox
+  url: sandbox/mollie-sandbox.yml
+- type: Components
+  url: components/mollie-components.yml
+- type: LLMsTxt
+  url: llms/mollie-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: ChangeLog
+  url: https://docs.mollie.com/changelog
+- type: Authentication
+  url: authentication/mollie-authentication.yml
+- type: OAuthScopes
+  url: scopes/mollie-scopes.yml
+- type: Conventions
+  url: conventions/mollie-conventions.yml
+- type: Idempotency
+  url: conventions/mollie-conventions.yml
+- type: ErrorCatalog
+  url: errors/mollie-problem-types.yml
+- type: DeclineCodes
+  url: errors/mollie-decline-codes.yml
+- type: Webhooks
+  url: asyncapi/mollie-webhooks.yml
+- type: DataModel
+  url: data-model/mollie-data-model.yml
+- type: MCPServer
+  url: mcp/mollie-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/mollie-tool-crosswalk.yml
+- type: OpenAPI
+  url: openapi/mollie-openapi-original.yml
+x-enrichment:
+  date: '2026-08-01'
+  status: enriched
+  artifacts_added: 35
+  pass: local-v1

@@ -1,0 +1,32 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Contact: mailto:responsible-disclosure@mollie.com
+Contact: mailto:security@mollie.com
+Contact: https://hackerone.com/mollie
+Preferred-Languages: en
+Policy: https://www.mollie.com/en/responsible-disclosure
+Encryption: https://www.mollie.com/security.aexpk
+Acknowledgments: https://hackerone.com/mollie/thanks
+Canonical: https://www.mollie.com/.well-known/security.txt
+Canonical: https://mollie.com/.well-known/security.txt
+Hiring: https://jobs.mollie.com/
+Expires: 2026-09-01T13:37:00Z
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJIBAEBCgAyFiEEBDdLmthFVuPRydYtyKYEs4tuEckFAmiwJAwUHHNlY3VyaXR5
+QG1vbGxpZS5jb20ACgkQyKYEs4tuEckzahAArXW2TgZoWHe+ucVOs8BZ/vwO0LvO
++WqRpPmpHmK3fH6jbd1gMck1p/mxj9kDNOHv7KcM7nkmTs5GeKyozLVpAHErEjpO
+p+hF28TRxyexZDiPjys2u2KWfCiQ2viCE7SQVq0SbjkDofI/WwFD8eQenqWgECMR
+3byfLfQ0K+ma7o3Q/K/C0Nwu/xp3GD2LxvFGxZQvt8dCBk5zLJZHRMkMdarg8PCo
+DfSZYR1NycbWB+chygdvonziU/FH9Bysbz9Zkh4q25rnzIXQxbu8xueOMrdV3UHN
+e6zj3tIdd/4gSE2uLn6czunoVgk3foqqUpI/cHo71fEdG/l28f6o8fGx/rFPqobe
+hrb34gyJ1NhFXSkimi2DxNJ12RHnCF1kInXXpDbuE2/qLin5cebxVFoWZo4swlVg
+6/yy4ciJTTFUNS3Qb81PQtY5zDIZDPb7/jV6SK019XSmir9FnCqNQ1rQWWgpPNd/
+i/CyCa/heQ7O5vIdmJDI10mneuMju+or3FgXQAHN71aIZdxcZsT1cwCDH97dxIXC
+KuZ/bkq/YDav8vkePh7ursecU0teKlL/hqm8fwfI1lxgA5BQ/DdwUBerRbQCJumn
+2SV9g2pEFLvh3ZQv6yeX0vwBo1ZsE4ZEh4ABvQ1PYStYtSS/HiYEr+EsMwit3Svg
+Zmzv6c9V9uDIGRE=
+=7WUp
+-----END PGP SIGNATURE-----

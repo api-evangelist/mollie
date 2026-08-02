@@ -1,0 +1,79 @@
+generated: '2026-08-01'
+method: searched
+source: openapi/mollie-openapi-original.yml
+docs: https://docs.mollie.com/reference/authentication
+summary:
+  types: [http, oauth2]
+  http_schemes: [bearer, basic]
+  api_key_in: [header]
+  oauth2_flows: [authorizationCode]
+  transport: HTTPS only, Authorization header
+schemes:
+- name: apiKey
+  type: http
+  scheme: bearer
+  in: header
+  parameter: Authorization
+  sources: [openapi/mollie-openapi-original.yml]
+  description: >-
+    Authenticates API requests for a single website profile. Each key targets either
+    live mode (live_...) or test mode (test_...). Keys are shown only once, at creation,
+    and cannot be retrieved afterwards; a lost key must be replaced under Developers →
+    API access tokens in the Dashboard and the old one revoked.
+  token_prefixes: [live_, test_]
+- name: advancedAccessToken
+  type: http
+  scheme: bearer
+  in: header
+  parameter: Authorization
+  sources: [openapi/mollie-openapi-original.yml]
+  description: >-
+    Authenticates API requests with configurable permissions. Can access
+    organization-level resources and optionally scope to a specific payment profile.
+    Intended for advanced integrations such as bookkeeping or reporting tools that need
+    fine-grained control. Shown only once at creation. Supports the testmode request
+    parameter instead of a separate test key.
+  token_prefixes: [access_]
+- name: oAuth
+  type: oauth2
+  sources: [openapi/mollie-openapi-original.yml, https://my.mollie.com/.well-known/oauth-authorization-server]
+  description: >-
+    Mollie Connect. OAuth 2.0 authorization code flow used by platforms and marketplaces
+    to act on behalf of linked merchant organizations.
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://my.mollie.com/oauth2/authorize
+    tokenUrl: https://api.mollie.com/oauth2/tokens
+    scope_count: 60
+    scopes_artifact: scopes/mollie-scopes.yml
+  metadata:
+    issuer: https://my.mollie.com
+    registration_endpoint: https://api.mollie.com/oauth2/register
+    revocation_endpoint: https://api.mollie.com/oauth2/tokens
+    service_documentation: https://docs.mollie.com/reference/oauth2
+    grant_types_supported: [authorization_code, refresh_token]
+    response_types_supported: [code]
+    code_challenge_methods_supported: [S256]
+    token_endpoint_auth_methods_supported: [client_secret_post, none]
+    dynamic_client_registration: true
+- name: basicAuth
+  type: http
+  scheme: basic
+  in: header
+  parameter: Authorization
+  sources: [openapi/mollie-openapi-original.yml]
+  description: >-
+    HTTP Basic Authentication, encoded as "Basic " + toBase64(username + ":" + password).
+    Used on the OAuth token endpoints for confidential clients.
+request_signing:
+  present: true
+  scope: Business Account Transfers API (create-transfer)
+  headers: [X-Client-Signature, X-Client-Signed-At]
+  note: >-
+    Transfers from a Mollie Business Account must additionally be signed, on top of the
+    bearer advanced access token, and must carry an Idempotency-Key header.
+mcp:
+  url: https://mcp.mollie.com/mcp
+  scheme: bearer
+  minimum_scope: profile.read
+  protected_resource_metadata: https://mcp.mollie.com/.well-known/oauth-protected-resource

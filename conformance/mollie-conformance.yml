@@ -1,0 +1,103 @@
+generated: '2026-08-01'
+method: searched
+source: https://www.mollie.com/security
+derived_from: openapi/mollie-openapi-original.yml
+standards:
+- id: openapi-3.1
+  conforms: true
+  evidence: openapi/mollie-openapi-original.yml declares openapi 3.1.0; published by Mollie
+    at https://github.com/mollie/openapi
+- id: oauth2-authorization-code
+  conforms: true
+  evidence: components.securitySchemes.oAuth type oauth2 with authorizationCode flow (my.mollie.com/oauth2/authorize,
+    api.mollie.com/oauth2/tokens)
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: true
+  evidence: https://my.mollie.com/.well-known/oauth-authorization-server returns 200 with
+    issuer, endpoints, 61 scopes_supported, grant/response types
+- id: rfc9728-oauth-protected-resource-metadata
+  conforms: true
+  evidence: https://mcp.mollie.com/.well-known/oauth-protected-resource returns 200 and the
+    MCP 401 carries WWW-Authenticate resource_metadata
+- id: rfc7636-pkce
+  conforms: true
+  evidence: code_challenge_methods_supported ["S256"] in the authorization-server metadata
+- id: rfc7591-dynamic-client-registration
+  conforms: true
+  evidence: registration_endpoint https://api.mollie.com/oauth2/register published in the
+    authorization-server metadata
+- id: openid-connect
+  conforms: false
+  evidence: no /.well-known/openid-configuration on any Mollie host; the OAuth metadata
+    publishes no id_token or userinfo endpoint
+- id: rfc9116-security-txt
+  conforms: true
+  evidence: well-known/mollie-security.txt — PGP-signed, with Contact, Policy, Encryption,
+    Acknowledgments, Canonical, Hiring, Expires
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: error responses use application/hal+json with a Mollie-specific status/title/detail/_links
+    envelope, not application/problem+json
+- id: hal-json
+  conforms: true
+  evidence: every response and error uses application/hal+json with _links and _embedded
+- id: idempotency-key
+  conforms: true
+  evidence: Idempotency-Key request header declared on all 124 operations; documented
+    one-hour replay window at https://docs.mollie.com/reference/api-idempotency
+- id: ietf-ratelimit-headers
+  conforms: partial
+  evidence: >-
+    RateLimit and RateLimit-Policy headers follow the shape of draft-ietf-httpapi-ratelimit-headers
+    (quota q, window w, remaining r, reset t) but add a vendor mollie-burst parameter;
+    Retry-After (RFC 9110) is returned on 429
+- id: cursor-pagination
+  conforms: true
+  evidence: v2 list endpoints paginate by object ID with limit/from/sort and _links.next
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: no Sunset or Deprecation response headers documented or declared in the spec
+- id: asyncapi
+  conforms: false
+  evidence: Mollie documents webhooks and a Webhook Subscriptions API but publishes no
+    AsyncAPI document (see asyncapi/mollie-webhooks.yml)
+- id: model-context-protocol
+  conforms: true
+  evidence: official hosted MCP server at https://mcp.mollie.com/mcp with OAuth-protected
+    resource metadata (see mcp/mollie-mcp.yml)
+- id: a2a-agent-card
+  conforms: false
+  evidence: /.well-known/agent-card.json and /.well-known/agent.json return 404 on every
+    Mollie host probed
+- id: psd2
+  conforms: true
+  evidence: >-
+    Mollie is licensed and supervised as a payment/e-money institution by De Nederlandsche
+    Bank (DNB) and the UK Financial Conduct Authority (FCA), operating under PSD2; SCA/3-D
+    Secure is handled by the hosted checkout and Components
+- id: pci-dss
+  conforms: true
+  level: Level 1 service provider
+  evidence: https://www.mollie.com/security — PCI-DSS Level 1, validated by Attestation of
+    Compliance; Mollie Components are documented as PCI-DSS SAQ-A for the merchant
+- id: soc2-type2
+  conforms: true
+  evidence: https://www.mollie.com/security — security, availability and confidentiality
+    controls independently assessed against the AICPA Trust Services Criteria
+- id: isae-3402-type2
+  conforms: true
+  evidence: https://www.mollie.com/security — annual external audit of operational controls
+- id: gdpr
+  conforms: true
+  evidence: https://www.mollie.com/legal/privacy and the security page's data-handling
+    section
+- id: iso-27001
+  conforms: false
+  evidence: not named on the Mollie security page; SOC 2 Type 2 and ISAE 3402 Type 2 are
+    the attestations published instead
+- id: sepa
+  conforms: true
+  evidence: SEPA Direct Debit and SEPA Credit Transfer are first-class payment/transfer
+    schemes in the API (create-transfer, SEPA Direct Debit method, mandates)
+compliance_page: https://www.mollie.com/security
+trust_center: security/mollie-trust-center.yml

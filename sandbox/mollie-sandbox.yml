@@ -1,0 +1,123 @@
+generated: '2026-08-01'
+method: searched
+source: https://docs.mollie.com/reference/testing
+also:
+- https://docs.mollie.com/docs/in-person-payments-testing
+- https://docs.mollie.com/reference/create-transfer
+mode_separation:
+  style: key-prefix and request parameter
+  live_key_prefix: live_
+  test_key_prefix: test_
+  advanced_access_token_prefix: access_
+  parameter: testmode
+  parameter_note: >-
+    Advanced access tokens and app tokens do not have separate test credentials; they
+    toggle test mode with the testmode parameter on the request.
+  isolation: >-
+    Resources created in test mode are completely isolated from live-mode data. Aside
+    from the hosted pages, the API behaves identically in both modes, including webhook
+    delivery.
+  exclusions: >-
+    API endpoints related to business operations (Business Accounts, Transfers, Verify
+    Payee) do not support test mode.
+test_checkout:
+  hosted_page: >-
+    Test-mode payments return a checkout URL that opens a test checkout screen instead of
+    the real hosted payment page, letting you force any payment status.
+  change_payment_state_url: >-
+    Recurring test payments have no checkout URL; a changePaymentState URL is returned
+    instead so the final state can be set directly. Paid test payments also expose
+    changePaymentState so refunds and chargebacks can be triggered from the hosted page.
+test_cards:
+  note: >-
+    Any expiry date and any CVV are accepted. The brand affects the dynamic card-logo
+    display only; the processed test payment always defaults to Mastercard.
+  cards:
+  - brand: American Express
+    number: '3782 822463 10005'
+    expiry: any
+    cvv: any
+  - brand: Mastercard
+    number: '2223 0000 1047 9399'
+    expiry: any
+    cvv: any
+  - brand: VISA
+    number: '4543 4740 0224 9996'
+    expiry: any
+    cvv: any
+magic_amounts:
+  currency: EUR
+  note: >-
+    Create the test-mode card payment with the amount below, then force the payment to
+    the failed status in the test flow; the payment response carries the matching
+    failureReason. EUR is currently the only currency supported for testing.
+  amounts:
+  - amount: '1001.00'
+    failure_reason: invalid_card_number
+  - amount: '1002.00'
+    failure_reason: invalid_cvv
+  - amount: '1003.00'
+    failure_reason: invalid_card_holder_name
+  - amount: '1004.00'
+    failure_reason: card_expired
+  - amount: '1005.00'
+    failure_reason: invalid_card_type
+  - amount: '1006.00'
+    failure_reason: refused_by_issuer
+  - amount: '1007.00'
+    failure_reason: insufficient_funds
+  - amount: '1008.00'
+    failure_reason: inactive_card
+  - amount: '1009.00'
+    failure_reason: possible_fraud
+  - amount: '1010.00'
+    failure_reason: authentication_failed
+  - amount: '1011.00'
+    failure_reason: card_declined
+transfer_simulation:
+  applies_to: Business Account Transfers API (create-transfer, beta)
+  currency: EUR
+  note: >-
+    In test mode, adjusting the transfer amount simulates the status progression of a
+    real transfer. Progression stops at a final status (blocked, failed, processed,
+    returned).
+  scenarios:
+  - amount: '11.00'
+    scenario: Transfer initiated, pending review by Mollie
+    webhook_sequence: [business-account-transfer.requested, business-account-transfer.initiated,
+      business-account-transfer.pending-review]
+  - amount: '12.00'
+    scenario: Transfer initiated, blocked by Mollie
+    webhook_sequence: [business-account-transfer.requested, business-account-transfer.initiated,
+      business-account-transfer.pending-review, business-account-transfer.blocked]
+  - amount: '13.00'
+    scenario: Transfer initiated, failed on scheme submission
+    webhook_sequence: [business-account-transfer.requested, business-account-transfer.initiated,
+      business-account-transfer.failed]
+  - amount: '14.00'
+    scenario: Transfer processed, then returned by receiving bank
+    webhook_sequence: [business-account-transfer.requested, business-account-transfer.initiated,
+      business-account-transfer.processed, business-account-transfer.returned]
+  - amount: other
+    scenario: 'Default: transfer is processed'
+    webhook_sequence: [business-account-transfer.requested, business-account-transfer.initiated,
+      business-account-transfer.processed]
+point_of_sale:
+  supported: true
+  note: The Terminals API supports test mode for point-of-sale integrations.
+  docs: https://docs.mollie.com/docs/in-person-payments-testing
+payment_methods:
+  note: >-
+    In test mode, payment methods are activated immediately even while they show as
+    pending. Pending methods cannot be used in live mode.
+accounts:
+  self_service: https://my.mollie.com
+  demo_accounts:
+    available: true
+    status: early access
+    note: >-
+      Dedicated Demo Accounts for exploring Mollie functionality without real transaction
+      implications. Access is requested through a Mollie representative.
+test_clocks:
+  supported: false
+  note: Mollie does not publish a time-simulation / test-clock facility.

@@ -1,0 +1,286 @@
+generated: '2026-08-01'
+method: derived
+source: openapi/mollie-openapi-original.yml
+docs: https://docs.mollie.com/reference/common-data-types
+note: >-
+  Derived from the 379 component schemas and the 87 paths of Mollie's OpenAPI 3.1 document.
+  Relationships are read from path nesting (a sub-resource path implies belongs_to) and
+  from id-reference fields on the entity schemas. Identifier prefixes are read from the
+  example values published in the specification.
+conventions:
+  identifier_style: prefixed opaque string, <prefix>_<base62>
+  amount_shape:
+    currency: ISO 4217 code
+    value: decimal string, e.g. "10.00"
+  timestamps: ISO 8601 with offset (createdAt, expiresAt, paidAt, ...)
+  hypermedia: every entity carries _links; list responses nest items under _embedded
+entities:
+- name: payment
+  id_prefix: tr_
+  path: /v2/payments
+  operations: [create-payment, list-payments, get-payment, update-payment, cancel-payment,
+    release-authorization]
+  belongs_to: [profile, customer, mandate, subscription, order]
+  has_many: [refund, chargeback, capture, route]
+- name: payment-link
+  id_prefix: pl_
+  path: /v2/payment-links
+  operations: [create-payment-link, list-payment-links, get-payment-link, update-payment-link,
+    delete-payment-link, get-payment-link-payments]
+  belongs_to: [profile]
+  has_many: [payment]
+- name: refund
+  id_prefix: re_
+  path: /v2/payments/{paymentId}/refunds
+  operations: [create-refund, list-refunds, get-refund, cancel-refund, list-all-refunds]
+  belongs_to: [payment]
+- name: chargeback
+  id_prefix: chb_
+  path: /v2/payments/{paymentId}/chargebacks
+  operations: [list-chargebacks, get-chargeback, list-all-chargebacks]
+  belongs_to: [payment]
+- name: capture
+  id_prefix: cpt_
+  path: /v2/payments/{paymentId}/captures
+  operations: [create-capture, list-captures, get-capture]
+  belongs_to: [payment]
+- name: payment-route
+  id_prefix: rt_
+  path: /v2/payments/{paymentId}/routes
+  operations: [payment-create-route, payment-list-routes, payment-get-route]
+  belongs_to: [payment]
+- name: customer
+  id_prefix: cst_
+  path: /v2/customers
+  operations: [create-customer, list-customers, get-customer, update-customer, delete-customer,
+    create-customer-payment, list-customer-payments]
+  has_many: [payment, mandate, subscription]
+- name: mandate
+  id_prefix: mdt_
+  path: /v2/customers/{customerId}/mandates
+  operations: [create-mandate, list-mandates, get-mandate, revoke-mandate]
+  belongs_to: [customer]
+  has_many: [subscription]
+- name: subscription
+  id_prefix: sub_
+  path: /v2/customers/{customerId}/subscriptions
+  operations: [create-subscription, list-subscriptions, get-subscription, update-subscription,
+    cancel-subscription, list-all-subscriptions, list-subscription-payments]
+  belongs_to: [customer, mandate]
+  has_many: [payment]
+- name: profile
+  id_prefix: pfl_
+  path: /v2/profiles
+  operations: [create-profile, list-profiles, get-profile, update-profile, delete-profile,
+    get-current-profile]
+  belongs_to: [organization]
+  has_many: [payment, payment-link, method]
+  alias: me
+- name: organization
+  id_prefix: org_
+  path: /v2/organizations/{organizationId}
+  operations: [get-organization, get-current-organization, get-partner-status]
+  has_many: [profile, balance, settlement, invoice, client]
+  alias: me
+- name: method
+  id_prefix: null
+  path: /v2/methods
+  operations: [list-methods, list-all-methods, get-method, enable-method, disable-method,
+    enable-method-issuer, disable-method-issuer]
+  belongs_to: [profile]
+  note: Identified by slug (ideal, creditcard, bancontact, ...) rather than a prefixed id.
+- name: session
+  id_prefix: sess_
+  path: /v2/sessions
+  operations: [create-session, get-session]
+  belongs_to: [profile]
+  has_many: [payment]
+  status: beta
+- name: terminal
+  id_prefix: term_
+  path: /v2/terminals
+  operations: [list-terminals, get-terminal]
+  belongs_to: [profile]
+- name: terminal-pairing-code
+  id_prefix: null
+  path: /v2/terminals/pairing-codes
+  operations: [terminals-request-pairing-code, terminals-list-pairing-codes, terminals-get-pairing-code,
+    terminals-revoke-pairing-code]
+  belongs_to: [terminal]
+- name: balance
+  id_prefix: bal_
+  path: /v2/balances
+  operations: [list-balances, get-balance, get-primary-balance, get-balance-report, list-balance-transactions]
+  belongs_to: [organization]
+  has_many: [balance-transaction, payout]
+- name: balance-transaction
+  id_prefix: baltr_
+  path: /v2/balances/{balanceId}/transactions
+  operations: [list-balance-transactions]
+  belongs_to: [balance]
+- name: settlement
+  id_prefix: stl_
+  path: /v2/settlements
+  operations: [list-settlements, get-settlement, get-open-settlement, get-next-settlement,
+    list-settlement-payments, list-settlement-captures, list-settlement-refunds, list-settlement-chargebacks]
+  belongs_to: [organization]
+  has_many: [payment, capture, refund, chargeback]
+- name: payout
+  id_prefix: payout_
+  path: /v2/payouts
+  operations: [create-payout, list-payouts, get-payout, cancel-payout]
+  belongs_to: [balance]
+- name: invoice
+  id_prefix: inv_
+  path: /v2/invoices
+  operations: [list-invoices, get-invoice]
+  belongs_to: [organization]
+  note: Mollie's invoices TO the merchant.
+- name: sales-invoice
+  id_prefix: null
+  path: /v2/sales-invoices
+  operations: [create-sales-invoice, list-sales-invoices, get-sales-invoice, update-sales-invoice,
+    delete-sales-invoice]
+  belongs_to: [organization]
+  has_one: [payment]
+  note: The merchant's invoices TO their own customers.
+- name: business-account
+  id_prefix: null
+  path: /v2/business-accounts/accounts
+  operations: [list-business-accounts, get-business-account, list-business-account-transactions,
+    get-business-account-transaction]
+  belongs_to: [organization]
+  has_many: [business-account-transaction, business-account-transfer]
+- name: business-account-transfer
+  id_prefix: batrf_
+  path: /v2/business-accounts/transfers
+  operations: [create-transfer, get-transfer]
+  belongs_to: [business-account]
+  status: beta
+- name: connect-balance-transfer
+  id_prefix: cbtr_
+  path: /v2/connect/balance-transfers
+  operations: [create-connect-balance-transfer, list-connect-balance-transfers, get-connect-balance-transfer]
+  belongs_to: [balance]
+- name: unmatched-credit-transfer
+  id_prefix: uct_
+  path: /v2/unmatched-credit-transfers
+  operations: [list-unmatched-credit-transfers, get-unmatched-credit-transfer, match-unmatched-credit-transfer,
+    return-unmatched-credit-transfer]
+  belongs_to: [balance]
+- name: client
+  id_prefix: org_
+  path: /v2/clients
+  operations: [list-clients, get-client]
+  belongs_to: [organization]
+  note: A merchant organization linked to a Mollie Connect partner.
+- name: client-link
+  id_prefix: cl_
+  path: /v2/client-links
+  operations: [create-client-link]
+  note: One-time onboarding link used to attach a new client organization.
+- name: webhook
+  id_prefix: hook_
+  path: /v2/webhooks
+  operations: [create-webhook, list-webhooks, get-webhook, update-webhook, delete-webhook,
+    test-webhook]
+  belongs_to: [profile, organization]
+  has_many: [webhook-event]
+- name: webhook-event
+  id_prefix: event_
+  path: /v2/events/{webhookEventId}
+  operations: [get-webhook-event]
+  belongs_to: [webhook]
+- name: permission
+  id_prefix: null
+  path: /v2/permissions
+  operations: [list-permissions, get-permission]
+  note: Identified by scope name; see scopes/mollie-scopes.yml.
+- name: capability
+  id_prefix: null
+  path: /v2/capabilities
+  operations: [list-capabilities]
+  belongs_to: [organization]
+  status: beta
+relationships:
+- from: organization
+  to: profile
+  kind: has_many
+  via: profileId
+- from: profile
+  to: payment
+  kind: has_many
+  via: profileId
+- from: customer
+  to: payment
+  kind: has_many
+  via: customerId
+- from: customer
+  to: mandate
+  kind: has_many
+  via: customerId
+- from: customer
+  to: subscription
+  kind: has_many
+  via: customerId
+- from: subscription
+  to: mandate
+  kind: belongs_to
+  via: mandateId
+- from: subscription
+  to: payment
+  kind: has_many
+  via: subscriptionId
+- from: payment
+  to: refund
+  kind: has_many
+  via: paymentId
+- from: payment
+  to: chargeback
+  kind: has_many
+  via: paymentId
+- from: payment
+  to: capture
+  kind: has_many
+  via: paymentId
+- from: payment
+  to: payment-route
+  kind: has_many
+  via: paymentId
+- from: payment
+  to: settlement
+  kind: belongs_to
+  via: settlementId
+- from: payment-link
+  to: payment
+  kind: has_many
+  via: paymentLinkId
+- from: balance
+  to: balance-transaction
+  kind: has_many
+  via: balanceId
+- from: balance
+  to: payout
+  kind: has_many
+  via: balanceId
+- from: settlement
+  to: payment
+  kind: has_many
+  via: settlementId
+- from: business-account
+  to: business-account-transfer
+  kind: has_many
+  via: businessAccountId
+- from: webhook
+  to: webhook-event
+  kind: has_many
+  via: webhookId
+- from: session
+  to: payment
+  kind: has_many
+  via: sessionId
+- from: organization
+  to: client
+  kind: has_many
+  via: organizationId
+render: null

@@ -1,0 +1,110 @@
+generated: '2026-08-01'
+method: derived
+source: openapi/mollie-openapi-original.yml
+docs: https://docs.mollie.com/reference/handling-errors
+format: mollie-error-response
+rfc9457: false
+note: >-
+  Mollie does not use RFC 9457 application/problem+json. Errors are returned as
+  application/hal+json using a fixed error-response schema with status, title, detail and
+  _links (plus an optional field naming the offending request field). The catalogue below
+  is derived from the 4xx/5xx responses declared across all 124 operations in the OpenAPI
+  document, and enriched from the docs error-handling guide.
+envelope:
+  content_type: application/hal+json
+  schema: '#/components/schemas/error-response'
+  required: [status, title, detail, _links]
+  optional: [field]
+  example:
+    status: 422
+    title: Unprocessable Entity
+    detail: The amount is higher than the maximum
+    field: amount
+    _links:
+      documentation:
+        href: https://docs.mollie.com/reference/handling-errors
+        type: text/html
+success_codes: [200, 201, 204]
+problems:
+- status: 400
+  title: Bad Request
+  detail: >-
+    The request contains invalid list parameters, or an invalid enum value such as an
+    unsupported sequenceType or locale.
+  occurrences: 37
+  shared_response: '#/components/responses/400-invalid-list-request'
+  sample_operations: [list-balances, list-settlements, list-payments, create-payment]
+  remediation: Correct the query parameters or the offending enum value named in `field`.
+- status: 403
+  title: Forbidden
+  detail: >-
+    The action is not permitted for this account. Observed for demo accounts hitting the
+    profile limit, and for editing a profile that belongs to a demo account. Also returned
+    by the Methods API when a payment method exists but has not been enabled on the profile.
+  occurrences: 2
+  sample_operations: [create-profile, update-profile]
+  remediation: Enable the capability or method on the profile, or use a non-demo account.
+- status: 404
+  title: Not Found
+  detail: No item with the given ID exists (or, for refunds, the refund was canceled).
+  occurrences: 81
+  shared_response: '#/components/responses/404-invalid-id'
+  sample_operations: [get-balance, get-payment, get-refund, get-profile]
+  remediation: Verify the resource ID and that it belongs to the authenticated profile or organization.
+- status: 409
+  title: Conflict
+  detail: >-
+    A duplicate or state-conflicting request. Observed for two identical refund requests
+    submitted on the same payment in short succession, and for canceling a payout that has
+    already moved past the `requested` status.
+  occurrences: 2
+  sample_operations: [create-refund, cancel-payout]
+  remediation: >-
+    Send an Idempotency-Key header on retried write requests; re-read the resource to
+    confirm current status before mutating.
+- status: 410
+  title: Gone
+  detail: >-
+    The requested resource is no longer available. The profile associated with the ID has
+    been deleted and cannot be accessed.
+  occurrences: 3
+  sample_operations: [get-profile, update-profile, delete-profile]
+  remediation: Stop referencing the deleted profile; create or select another profile.
+- status: 422
+  title: Unprocessable Entity
+  detail: >-
+    The request is syntactically valid but semantically rejected — a missing payment
+    description, an amount above the maximum allowed, a `from` date after the `until` date,
+    no parameters supplied on a PATCH, or a webhook that has already been deleted.
+  occurrences: 31
+  shared_response: '#/components/responses/422-mandatory-owner'
+  sample_operations: [create-payment, create-profile, create-client-link, get-balance-report]
+  remediation: Read the `field` property to find the offending request field.
+- status: 429
+  title: Too Many Requests
+  detail: >-
+    The rate limit for this policy has been exceeded. Declared on every one of the 124
+    operations in the specification.
+  occurrences: 124
+  shared_response: '#/components/responses/429-rate-limit'
+  headers: [Retry-After, RateLimit, RateLimit-Policy]
+  remediation: >-
+    Back off for the number of seconds in Retry-After, then retry with exponential backoff.
+    See conventions/mollie-conventions.yml#rate_limiting.
+- status: 503
+  title: Service Unavailable
+  detail: >-
+    Either the payment method supplier is currently unavailable (for example, the iDEAL
+    network is having issues) or an unexpected error occurred on Mollie's side.
+  occurrences: 4
+  sample_operations: [create-payment, create-customer-payment, create-transfer, verify-payee]
+  remediation: >-
+    Retry later with the same Idempotency-Key. If it persists, check status.mollie.com and
+    contact support.
+class_guidance:
+  '2xx': Success.
+  '4xx': Client error — the request will not succeed unchanged; fix the integration.
+  '5xx': Server error on Mollie's side — should subside without client mediation.
+related:
+  decline_codes: errors/mollie-decline-codes.yml
+  conventions: conventions/mollie-conventions.yml

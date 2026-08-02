@@ -1,0 +1,152 @@
+generated: '2026-08-01'
+method: searched
+source: https://github.com/mollie + npm/PyPI/Packagist/RubyGems/NuGet/Maven/pkg.go.dev
+notes: >-
+  Mollie ships two generations of client libraries. The newer "Mollie's Official SDK"
+  family (mollie-api-typescript, mollie-api-py, mollie-api-golang, mollie-api-java,
+  mollie-api-csharp) is generated from the OpenAPI 3.1 specification in github.com/mollie/openapi.
+  The long-standing hand-written clients (mollie-api-php, mollie-api-ruby) remain the
+  primary libraries for their languages. Repositories whose GitHub description says
+  "Community Mollie API client" (mollie-api-node, mollie-api-python) are recorded here
+  as community, even though they live in the Mollie GitHub organization.
+packages:
+- language: php
+  registry: packagist
+  name: mollie/mollie-api-php
+  url: https://packagist.org/packages/mollie/mollie-api-php
+  install: composer require mollie/mollie-api-php
+  source: https://github.com/mollie/mollie-api-php
+  official: true
+- language: php
+  registry: packagist
+  name: mollie/laravel-mollie
+  url: https://packagist.org/packages/mollie/laravel-mollie
+  install: composer require mollie/laravel-mollie
+  source: https://github.com/mollie/laravel-mollie
+  official: true
+  note: Laravel wrapper and Mollie Connect provider for Laravel Socialite.
+- language: php
+  registry: packagist
+  name: mollie/oauth2-mollie-php
+  url: https://packagist.org/packages/mollie/oauth2-mollie-php
+  install: composer require mollie/oauth2-mollie-php
+  source: https://github.com/mollie/oauth2-mollie-php
+  official: true
+  note: Mollie provider for league/oauth2-client.
+- language: javascript
+  registry: npm
+  name: '@mollie/api-client'
+  url: https://www.npmjs.com/package/@mollie/api-client
+  install: npm install @mollie/api-client
+  source: https://github.com/mollie/mollie-api-node
+  official: true
+  note: >-
+    Published as "Official Mollie API client for Node"; the mollie-api-node repository
+    is now labelled a community client, with mollie-api-typescript positioned as the
+    generated official TypeScript SDK.
+- language: typescript
+  registry: github
+  name: mollie-api-typescript
+  url: https://github.com/mollie/mollie-api-typescript
+  source: https://github.com/mollie/mollie-api-typescript
+  official: true
+  note: "Mollie's Official SDK for Node, generated from the OpenAPI specification."
+- language: python
+  registry: pypi
+  name: mollie-api-py
+  url: https://pypi.org/project/mollie-api-py/
+  install: pip install mollie-api-py
+  source: https://github.com/mollie/mollie-api-py
+  official: true
+  note: "Mollie's Official SDK for Python (spec-generated). Also installable with `uv add mollie-api-py`."
+- language: python
+  registry: pypi
+  name: mollie-api-python
+  url: https://pypi.org/project/mollie-api-python/
+  install: pip install mollie-api-python
+  source: https://github.com/mollie/mollie-api-python
+  official: false
+  note: Hosted in the Mollie GitHub organization but described as a community client.
+- language: ruby
+  registry: rubygems
+  name: mollie-api-ruby
+  url: https://rubygems.org/gems/mollie-api-ruby
+  install: gem install mollie-api-ruby
+  source: https://github.com/mollie/mollie-api-ruby
+  official: true
+- language: go
+  registry: go-modules
+  name: github.com/mollie/mollie-api-golang
+  url: https://pkg.go.dev/github.com/mollie/mollie-api-golang
+  install: go get github.com/mollie/mollie-api-golang
+  source: https://github.com/mollie/mollie-api-golang
+  official: true
+  note: "Mollie's Official SDK for Go."
+- language: java
+  registry: maven-central
+  name: com.mollie:mollie
+  url: https://central.sonatype.com/artifact/com.mollie/mollie
+  install: implementation 'com.mollie:mollie:1.9.0'
+  source: https://github.com/mollie/mollie-api-java
+  official: true
+  note: "Mollie's Official SDK for Java."
+- language: csharp
+  registry: nuget
+  name: Mollie
+  url: https://www.nuget.org/packages/Mollie
+  install: dotnet add package Mollie
+  source: https://github.com/mollie/mollie-api-csharp
+  official: true
+  note: "Mollie's Official SDK for C#/.NET."
+- language: typescript
+  registry: github
+  name: '@mollie/agent-toolkit'
+  url: https://github.com/mollie/ai/tree/main/packages/agent-toolkit
+  source: https://github.com/mollie/ai
+  official: true
+  note: >-
+    Official agent toolkit exposing Mollie operations as LLM tools with adapters for
+    LangChain, the OpenAI SDK and the Vercel AI SDK. See mcp/mollie-tool-crosswalk.yml.
+- language: javascript
+  registry: cdn
+  name: Mollie.js
+  url: https://js.mollie.com/v1/mollie.js
+  source: https://docs.mollie.com/reference/molliejs
+  official: true
+  note: >-
+    Browser-side library for Mollie Components (PCI-DSS SAQ-A card form and cardToken
+    exchange). Loaded from js.mollie.com, not from a package registry.
+plugins:
+- name: WooCommerce
+  url: https://github.com/mollie/WooCommerce
+  official: true
+- name: Shopware 6
+  url: https://github.com/mollie/Shopware6
+  official: true
+- name: Magento 2
+  url: https://github.com/mollie/magento2
+  official: true
+- name: PrestaShop
+  url: https://github.com/mollie/PrestaShop
+  official: true
+- name: OpenCart
+  url: https://github.com/mollie/OpenCart
+  official: true
+- name: Laravel Cashier Mollie
+  url: https://github.com/mollie/laravel-cashier-mollie
+  official: true
+- name: commercetools connector
+  url: https://github.com/mollie/commercetools-connector
+  official: true
+- name: Odoo
+  url: https://github.com/mollie/mollie-odoo
+  official: true
+- name: n8n nodes
+  url: https://github.com/mollie/mollie-n8n-nodes
+  official: true
+- name: Sylius
+  url: https://github.com/mollie/Sylius
+  official: true
+- name: Salesforce Commerce Cloud
+  url: https://github.com/mollie/SalesforceCommerceCloud
+  official: true

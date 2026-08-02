@@ -1,0 +1,83 @@
+generated: '2026-08-01'
+method: searched
+source: https://docs.mollie.com/changelog
+observed: '2026-08-01'
+scheme:
+  api_versioning: uri-path
+  current_version: v2
+  changelog_style: dated entries, newest first, paginated (16 pages at time of capture)
+  breaking_change_marker: >-
+    Mollie does not label entries breaking/non-breaking. Deprecations are announced in the
+    reference itself with the phrase "We no longer recommend using the ... API"; the
+    superseded surface remains callable.
+note: >-
+  The changelog index renders relative dates ("2 days ago") rather than absolute ones, and
+  the per-entry markdown carries no date. The approx_date values below are computed from
+  the relative label observed on 2026-08-01 and should be treated as approximate.
+entries:
+- title: Add Billink as a supported payment method
+  approx_date: '2026-07-30'
+  observed_relative: 2 days ago
+  kind: addition
+  highlight: >-
+    Billink is available as a payment method on create-payment. As a buy now, pay later
+    method it requires order lines and a billing address.
+  url: https://docs.mollie.com/changelog/add-billink-as-a-supported-payment-method
+- title: Add requiredCustomerDetails to sessions [Beta]
+  approx_date: '2026-07-22'
+  observed_relative: 10 days ago
+  kind: addition
+  area: Sessions API
+  url: https://docs.mollie.com/changelog/add-requiredcustomerdetails-to-sessions-beta
+- title: PayPal now available in Express Component (beta)
+  approx_date: '2026-07-20'
+  observed_relative: 12 days ago
+  kind: addition
+  area: Mollie Components
+  url: https://docs.mollie.com/changelog/paypal-now-available-in-express-component-beta
+- title: Added Draft Transfers public API
+  approx_date: '2026-07-17'
+  observed_relative: 15 days ago
+  kind: addition
+  area: Business Accounts
+  url: https://docs.mollie.com/changelog/added-draft-transfers-public-api
+- title: Shopware 6 plugin v5 has launched
+  approx_date: '2026-07-16'
+  observed_relative: 16 days ago
+  kind: addition
+  area: Plugins
+  url: https://docs.mollie.com/changelog/shopware-6-plugin-v5-has-launched
+- title: Sales Invoices API from open beta to general availability
+  approx_date: '2026-07-16'
+  observed_relative: 16 days ago
+  kind: status-change
+  area: Sales Invoices API
+  url: https://docs.mollie.com/changelog/sales-invoices-api-from-open-beta-to-general-availability
+- title: Customer SSO is live
+  approx_date: '2026-07-09'
+  observed_relative: 23 days ago
+  kind: addition
+  url: https://docs.mollie.com/changelog/customer-sso-is-live
+- title: Add cs_CZ and sk_SK to the locale enum
+  approx_date: '2026-07-08'
+  observed_relative: 24 days ago
+  kind: addition
+  area: Common data types
+  highlight: Additive enum expansion — clients must tolerate new locale values.
+  url: https://docs.mollie.com/changelog/add-cs-cz-and-sk-sk-to-the-locale-enum
+- title: Fix count minimum to allow empty lists
+  approx_date: '2026-07-08'
+  observed_relative: 24 days ago
+  kind: fix
+  area: Pagination
+  highlight: The count field in list responses may now legitimately be 0.
+  url: https://docs.mollie.com/changelog/fix-count-minimum-to-allow-empty-lists
+- title: New Mollie Checkout design
+  approx_date: '2026-07-03'
+  observed_relative: 29 days ago
+  kind: change
+  area: Hosted checkout
+  url: https://docs.mollie.com/changelog/new-mollie-checkout-design
+related:
+  lifecycle: lifecycle/mollie-lifecycle.yml
+  release_notes_tooling: https://github.com/mollie/mollie-api-release-note-generator
