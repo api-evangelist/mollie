@@ -13,32 +13,20 @@ authentication:
   token_type: Mollie advanced access token (access_...) or OAuth 2.0 access token
   env_var: MOLLIE_API_OAUTH_ORG_TOKEN
   minimum_scope: profile.read
-  note: >-
-    Additional per-API scopes are required for the tools that touch those APIs
-    (for example payments.read for payment tools). See scopes/mollie-scopes.yml.
+  note: Additional per-API scopes are required for the tools that touch those APIs (for example payments.read
+    for payment tools). See scopes/mollie-scopes.yml.
   authorization_server: https://my.mollie.com
   protected_resource_metadata: https://mcp.mollie.com/.well-known/oauth-protected-resource
 client_config:
-  claude_desktop: |
-    {
-      "mcpServers": {
-        "Mollie": {
-          "command": "npx",
-          "args": [
-            "mcp-remote",
-            "https://mcp.mollie.com/mcp",
-            "--header",
-            "Authorization: Bearer ${MOLLIE_API_OAUTH_ORG_TOKEN}"
-          ],
-          "env": {
-            "MOLLIE_API_OAUTH_ORG_TOKEN": "PUT_YOUR_OWN_ORG_TOKEN_HERE"
-          }
-        }
-      }
-    }
-  claude_code_plugin: |
-    claude plugin marketplace add mollie/ai
+  claude_desktop: "{\n  \"mcpServers\": {\n    \"Mollie\": {\n      \"command\": \"npx\",\n      \"args\"\
+    : [\n        \"mcp-remote\",\n        \"https://mcp.mollie.com/mcp\",\n        \"--header\",\n   \
+    \     \"Authorization: Bearer ${MOLLIE_API_OAUTH_ORG_TOKEN}\"\n      ],\n      \"env\": {\n      \
+    \  \"MOLLIE_API_OAUTH_ORG_TOKEN\": \"PUT_YOUR_OWN_ORG_TOKEN_HERE\"\n      }\n    }\n  }\n}\n"
+  claude_code_plugin: 'claude plugin marketplace add mollie/ai
+
     claude plugin install mollie@mollie
+
+    '
 api_coverage:
 - Balances API
 - Captures API
@@ -55,17 +43,15 @@ api_coverage:
 - Webhook Events API
 introspection:
   attempted: '2026-08-01'
-  method: 'POST {"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+  method: POST {"jsonrpc":"2.0","id":1,"method":"tools/list"}
   http_status: 401
   www_authenticate: Bearer resource_metadata="https://mcp.mollie.com/.well-known/oauth-protected-resource"
   gated: true
-  note: >-
-    Anonymous tools/list is refused. The live tool list with real inputSchema requires
-    an authenticated introspection. The tool names recorded below are NOT from the MCP
-    server itself — they are the tool names Mollie publishes in its official agent
-    toolkit (github.com/mollie/ai, packages/agent-toolkit/src/tools/*.ts), which covers
-    the same product surface. Treat them as the published agent tool vocabulary, not as
-    a verified mcp/tools-list response.
+  note: Anonymous tools/list is refused. The live tool list with real inputSchema requires an authenticated
+    introspection. The tool names recorded below are NOT from the MCP server itself — they are the tool
+    names Mollie publishes in its official agent toolkit (github.com/mollie/ai, packages/agent-toolkit/src/tools/*.ts),
+    which covers the same product surface. Treat them as the published agent tool vocabulary, not as a
+    verified mcp/tools-list response.
 tools:
   source: https://github.com/mollie/ai/tree/main/packages/agent-toolkit/src/tools
   verified_against_mcp: false
@@ -129,6 +115,12 @@ tools:
     source_operation: openapi/mollie-openapi-original.yml#update-sales-invoice
 resources:
   documented: true
-  note: >-
-    Mollie describes the MCP server as also exposing a resources component providing
-    access to developer documentation and API references. Not verified anonymously.
+  note: Mollie describes the MCP server as also exposing a resources component providing access to developer
+    documentation and API references. Not verified anonymously.
+deployment:
+  mode: remote
+  endpoint: https://mcp.mollie.com/mcp
+  verified: probed
+  probe: gated
+  checked: '2026-08-12'
+  source: catalog MCP census
