@@ -26,6 +26,17 @@ tags:
 - Company
 - Payments
 - Fintech
+- Financial-Services
+- Checkout
+- E-Commerce
+- Subscription
+- Point-of-Sale
+- Europe
+- Netherlands
+tags_raw:
+- Company
+- Payments
+- Fintech
 - Financial Services
 - Checkout
 - Ecommerce
@@ -50,6 +61,12 @@ apis:
   humanURL: https://docs.mollie.com/reference/overview
   baseURL: https://api.mollie.com
   tags:
+  - Payments
+  - Checkout
+  - Refunds
+  - Subscription
+  - Settlement
+  tags_raw:
   - Payments
   - Checkout
   - Refunds
