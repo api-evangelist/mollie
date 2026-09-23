@@ -1,4 +1,4 @@
-generated: '2026-08-01'
+generated: '2026-09-19'
 method: probed
 source: live GET of /.well-known/* on every Mollie host in apis.yml and OpenAPI servers[]
 hosts_probed:
@@ -8,67 +8,6 @@ hosts_probed:
 - docs.mollie.com
 - mcp.mollie.com
 - my.mollie.com
-documents:
-- host: https://www.mollie.com
-  path: /.well-known/security.txt
-  status: 200
-  content_type: text/plain
-  file: mollie-security.txt
-  note: RFC 9116, PGP-signed, Expires 2026-09-01T13:37:00Z.
-- host: https://mollie.com
-  path: /.well-known/security.txt
-  status: 200
-  content_type: text/plain
-  note: Identical document; both listed as Canonical in the file itself.
-- host: https://mcp.mollie.com
-  path: /.well-known/oauth-protected-resource
-  status: 200
-  content_type: application/json
-  file: mollie-mcp-oauth-protected-resource.json
-  note: >-
-    RFC 9728 protected-resource metadata for the Mollie MCP server; delegates to
-    https://my.mollie.com as the authorization server.
-- host: https://my.mollie.com
-  path: /.well-known/oauth-authorization-server
-  status: 200
-  content_type: application/json
-  file: mollie-oauth-authorization-server.json
-  note: >-
-    RFC 8414 authorization-server metadata. Publishes 60 supported OAuth scopes, PKCE
-    S256, dynamic client registration and authorization_code + refresh_token grants.
-- host: https://api.mollie.com
-  path: /.well-known/security.txt
-  status: 404
-- host: https://api.mollie.com
-  path: /.well-known/oauth-authorization-server
-  status: 404
-- host: https://mcp.mollie.com
-  path: /.well-known/oauth-authorization-server
-  status: 404
-- host: https://www.mollie.com
-  path: /.well-known/openid-configuration
-  status: 404
-- host: https://www.mollie.com
-  path: /.well-known/api-catalog
-  status: 404
-- host: https://www.mollie.com
-  path: /.well-known/ai-plugin.json
-  status: 404
-- host: https://www.mollie.com
-  path: /.well-known/agent-card.json
-  status: 404
-- host: https://www.mollie.com
-  path: /.well-known/agent.json
-  status: 404
-- host: https://api.mollie.com
-  path: /.well-known/agent-card.json
-  status: 404
-- host: https://mcp.mollie.com
-  path: /.well-known/agent-card.json
-  status: 404
-- host: https://docs.mollie.com
-  path: /.well-known/agent-card.json
-  status: 404
 findings:
   security_txt: true
   oauth_authorization_server: true
@@ -77,3 +16,84 @@ findings:
   api_catalog: false
   ai_plugin: false
   a2a_agent_card: false
+hosts:
+- host: ''
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: mollie-security.txt
+    content_type: text/plain
+    note: RFC 9116, PGP-signed, Expires 2026-09-01T13:37:00Z.
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/plain
+    note: Identical document; both listed as Canonical in the file itself.
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    file: mollie-mcp-oauth-protected-resource.json
+    content_type: application/json
+    note: RFC 9728 protected-resource metadata for the Mollie MCP server; delegates to https://my.mollie.com
+      as the authorization server.
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: mollie-oauth-authorization-server.json
+    content_type: application/json
+    note: RFC 8414 authorization-server metadata. Publishes 60 supported OAuth scopes, PKCE S256, dynamic
+      client registration and authorization_code + refresh_token grants.
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+- host: https://mcp.mollie.com
+  documents:
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    file: mollie-mcp-oauth-protected-resource.json
+    bytes: 129
+  path_echo_control: passed
+- host: https://my.mollie.com
+  documents:
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: mollie-my-oauth-authorization-server.json
+    bytes: 2578
+  path_echo_control: passed
+x-shape-fix:
+  converted: '2026-08-20'
+  from: documents
+  note: Rewritten into hosts[] -> documents[], the only shape well_known_docs() in score.rb reads. A served
+    .well-known surface recorded in any other shape scores as absent.
+x-mcp-probe:
+  probed: '2026-09-19'
+  issue: roadmap#321, roadmap#337
+  documents:
+  - host: https://mcp.mollie.com
+    path: /.well-known/oauth-protected-resource
+    file: mollie-mcp-oauth-protected-resource.json
+  - host: https://my.mollie.com
+    path: /.well-known/oauth-authorization-server
+    file: mollie-my-oauth-authorization-server.json
+  validated_on: resource (RFC 9728) / issuer (RFC 8414, OIDC)
+  negative_control: one per host; a 2xx JSON object at an impossible path discards the host
+note: 'MCP-host OAuth discovery added 2026-09-19 (roadmap#321/#337): the harvest visits a provider''s
+  primary hosts, and RFC 9728 protected-resource metadata lives on the MCP host, so these documents existed
+  and were invisible to the scorer. Fetched live and validated on `resource`/`issuer`; one negative control
+  per host.'
