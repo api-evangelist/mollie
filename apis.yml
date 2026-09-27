@@ -53,7 +53,7 @@ tags:
 - Company
 - Payments
 - Fintech
-- Financial-Services
+- Financial Services
 - Checkout
 - E-Commerce
 - Subscription
@@ -71,6 +71,7 @@ tags_raw:
 - Point of Sale
 - Europe
 - Netherlands
+- Financial-Services
 image: https://www.mollie.com/favicon.ico
 apis:
 - aid: mollie:mollie-api
