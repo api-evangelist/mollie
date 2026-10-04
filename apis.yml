@@ -60,6 +60,7 @@ tags:
 - Point-of-Sale
 - Europe
 - Netherlands
+- Payment Processing
 tags_raw:
 - Company
 - Payments
@@ -72,6 +73,7 @@ tags_raw:
 - Europe
 - Netherlands
 - Financial-Services
+- Payment Processing
 image: https://www.mollie.com/favicon.ico
 apis:
 - aid: mollie:mollie-api
