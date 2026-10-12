@@ -1,0 +1,35 @@
+generated: '2026-10-12'
+method: searched
+source:
+- https://n8n.io/integrations/mollie/
+checked:
+- https://composio.dev/toolkits/mollie
+- https://monid.ai/tools/mollie
+- https://n8n.io/integrations/mollie/
+- https://zapier.com/apps/mollie/integrations
+summary: null
+marketplace_apps:
+- marketplace: n8n
+  channel: open-source-node
+  app: mollie
+  url: https://n8n.io/integrations/mollie/
+  identity: title
+  pair_pages: 0
+  pairs: []
+edges:
+- partner_name: justt
+  partner: justt
+  partner_match: domain
+  type: contract
+  channel: partner-built
+  relationship: processor-connection
+  direction: partner-built
+  evidence: https://github.com/api-evangelist/justt/blob/main/openapi/justt-chargebacks-api-openapi.yml
+  contract_reference:
+    repo: justt
+    spec_file: justt-chargebacks-api-openapi.yml
+    value: mollie
+    property: components.schemas.PSP
+    detected_by: detect-payment-method-edges.py
+    detected: '2026-10-12'
+templates: []
