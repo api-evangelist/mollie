@@ -7,6 +7,7 @@ checked:
 - https://monid.ai/tools/mollie
 - https://n8n.io/integrations/mollie/
 - https://zapier.com/apps/mollie/integrations
+- woocommerce/integrations/woocommerce-integration-edges.yml
 summary: null
 marketplace_apps:
 - marketplace: n8n
@@ -32,4 +33,21 @@ edges:
     property: components.schemas.PSP
     detected_by: detect-payment-method-edges.py
     detected: '2026-10-12'
+- partner_name: WooCommerce (own)
+  partner: woocommerce
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://woocommerce.com/products/mollie-payments-for-woocommerce/
+  mirror_of: woocommerce/integrations/woocommerce-integration-edges.yml
+  apps:
+  - Mollie Payments
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: extension
 templates: []
