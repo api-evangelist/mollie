@@ -96,5 +96,5 @@
     - connectors/applications/mollie
     vendor_link: https://www.mollie.com/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
