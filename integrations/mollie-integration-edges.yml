@@ -103,32 +103,6 @@ edges:
   detected: '2026-10-15'
   detected_by: mirror-platform-listings.py
   category: WordPress plugin
-- partner_name: Fivetran
-  partner: fivetran
-  partner_match: aggregator
-  type: marketplace
-  marketplace: fivetran-connectors
-  channel: elt-connector
-  relationship: ipaas-bridge
-  direction: third-party
-  evidence: https://fivetran.com/docs/connectors/applications/mollie
-  category: null
-  contract_reference:
-    register: Fivetran connectors (fivetran.com/docs/connectors, docs-sitemap.xml + Partner-Built program)
-    spec_file: null
-    role: elt-connector:fivetran
-    registered_name: Mollie
-    matched_domain: mollie.com
-    matched_by: domain
-    detected_by: sweep-data-integration.py
-    detected: '2026-10-18'
-    signal_note: one edge per (provider, platform); connectors, streams, packages and usage are context, never read
-    connector_paths:
-    - connectors/applications/mollie
-    vendor_link: https://www.mollie.com/
-    builder: Fivetran
-  detected_by: sweep-data-integration.py
-  first_seen: '2026-10-18'
 - partner_name: Go module proxy
   partner: null
   partner_match: null
@@ -278,5 +252,31 @@ edges:
     detected_by: sweep-official-sdks.py
     detected: '2026-10-18'
   detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
+- partner_name: Fivetran
+  partner: fivetran
+  partner_match: aggregator
+  type: marketplace
+  marketplace: fivetran-connectors
+  channel: elt-connector
+  relationship: ipaas-bridge
+  direction: third-party
+  evidence: https://fivetran.com/docs/connectors/applications/mollie
+  category: null
+  contract_reference:
+    register: Fivetran connectors (fivetran.com/docs/connectors, docs-sitemap.xml + Partner-Built program)
+    spec_file: null
+    role: elt-connector:fivetran
+    registered_name: Mollie
+    matched_domain: mollie.com
+    matched_by: domain
+    detected_by: sweep-data-integration.py
+    detected: '2026-10-18'
+    signal_note: one edge per (provider, platform); connectors, streams, packages and usage are context, never read
+    connector_paths:
+    - connectors/applications/mollie
+    vendor_link: https://www.mollie.com/
+    builder: Fivetran
+  detected_by: sweep-data-integration.py
   first_seen: '2026-10-18'
 templates: []
