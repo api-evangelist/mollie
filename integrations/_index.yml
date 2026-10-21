@@ -21,19 +21,6 @@
     detected: '2026-10-12'
   status: not-a-workflow
   arazzo: null
-- slug: mollie-woocommerce-own
-  label: WooCommerce (own)
-  partner: woocommerce
-  partner_name: WooCommerce (own)
-  category: extension
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://woocommerce.com/products/mollie-payments-for-woocommerce/
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
 - slug: mollie-zapier
   label: Zapier
   partner: zapier
@@ -57,19 +44,6 @@
     app_slug: mollie-1
     beta: false
     builder: unknown (not in the directory record)
-  status: not-a-workflow
-  arazzo: null
-- slug: mollie-wordpress-own
-  label: WordPress (own)
-  partner: wordpress
-  partner_name: WordPress (own)
-  category: WordPress plugin
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://wordpress.org/plugins/mollie-payments-for-woocommerce/
-  source: edge
-  relationship: platform-app
   status: not-a-workflow
   arazzo: null
 - slug: mollie-go-module-proxy
@@ -270,5 +244,44 @@
     matched_by: org-profile-domain:mollie.com
     detected_by: sweep-agent-skills.py
     detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: mollie-woocommerce-own
+  label: WooCommerce (own)
+  partner: woocommerce
+  partner_name: WooCommerce (own)
+  category: extension
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/mollie-payments-for-woocommerce/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: mollie-wordpress-own
+  label: WordPress (own)
+  partner: wordpress
+  partner_name: WordPress (own)
+  category: WordPress plugin
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://wordpress.org/plugins/mollie-payments-for-woocommerce/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: mollie-salesforce-commerce-cloud-own
+  label: Salesforce Commerce Cloud (own)
+  partner: salesforce-commerce-cloud
+  partner_name: Salesforce Commerce Cloud (own)
+  category: eCommerce, paymentsProcessing
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://appexchange.salesforce.com/appxListingDetail?listingId=36c467bc-e5ba-47e0-b72d-3f7c49333f70
+  source: edge
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null
