@@ -285,3 +285,111 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: mollie-eba-payment-institutions-register-psd2-emd2
+  label: EBA Payment Institutions Register (PSD2 / EMD2)
+  partner_name: EBA Payment Institutions Register (PSD2 / EMD2)
+  category: EU/EEA PSD2 payment / e-money authorisation
+  type: register
+  channel: regulator-register
+  evidence: https://euclid.eba.europa.eu/register/pir/search
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: EBA Payment Institutions Register (PSD2 / EMD2)
+    spec_file: null
+    standard: null
+    role: authorised-payment-or-e-money-institution
+    registrations:
+    - registered_name: Mollie B.V.
+      licences:
+      - electronic money institution
+      register_country: NL
+      register_id: NL_DNB!F0038
+      matched_domain: null
+      matched_by: register-name
+      authorised: '2025-02-03'
+      competent_authority: NL_DNB
+      commercial_name: Mollie B.V.
+      national_ref: F0038
+      home_services:
+      - ES_010
+      - PS_010
+      - PS_020
+      - PS_03A
+      - PS_03B
+      - PS_03C
+      - PS_05A
+      - PS_05B
+      - PS_070
+      - PS_080
+      passports:
+      - AT
+      - BE
+      - BG
+      - CY
+      - CZ
+      - DE
+      - DK
+      - EE
+      - ES
+      - FI
+      - FR
+      - GR
+      - HR
+      - HU
+      - IE
+      - IS
+      - IT
+      - LI
+      - LT
+      - LU
+      - LV
+      - MT
+      - 'NO'
+      - PL
+      - PT
+      - RO
+      - SE
+      - SI
+      - SK
+      register_name_note: register-name 'mollie' = mollie; wikidata P856 mollie.com agrees or unheld
+    matched_by: register-name
+    signal_note: 'participation only: a regulator authorisation / registration and its PSD2 passports (host countries);
+      no API conformance is published by this register'
+    detected_by: sweep-eu-psd2-payment-institutions.py
+    detected: '2026-10-21'
+    identity_source: register-name
+    identity_note: register gave only the name; exact normalised match to the repo's apis.yml name, one repo, Wikidata
+      P856 not contradicting (Kin 2026-10-20 decision 2)
+  status: not-a-workflow
+  arazzo: null
+- slug: mollie-dnb-public-register-supervised-institutions-netherlands
+  label: DNB public register (supervised institutions, Netherlands)
+  partner_name: DNB public register (supervised institutions, Netherlands)
+  category: Dutch financial supervisory licence (DNB)
+  type: register
+  channel: regulator-register
+  evidence: https://www.dnb.nl/en/public-register/
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: DNB public register (supervised institutions, Netherlands)
+    spec_file: null
+    standard: null
+    role: licensed-participant
+    registrations:
+    - registered_name: Mollie B.V.
+      licences:
+      - Electronic money institutions
+      - Authorisation to carry out the business of a electronic-money institution (PSD2 - WFT 2:10a)
+      register_country: NL
+      matched_domain: mollie.com
+      matched_by: domain
+      register_id: DNB F0038
+      lei: 98450064AC9753611E09
+    signal_note: 'participation only: a supervisory licence / authorisation; no API conformance is published by
+      this register'
+    detected_by: sweep-dach-financial-registers.py
+    detected: '2026-10-21'
+  status: not-a-workflow
+  arazzo: null
