@@ -35,6 +35,9 @@ checked:
 - adobe-commerce/integrations/adobe-commerce-integration-edges.yml
 - https://github.com/raycast/extensions/tree/84f9ac51336a8c69f70974a75bc067c0feae3658/extensions
 - https://www.raycast.com/api/v1/store_listings
+- https://hex.pm/api
+- https://packagist.org/packages
+- https://pub.dev/api
 summary: null
 marketplace_apps:
 - marketplace: n8n
@@ -511,4 +514,99 @@ edges:
   detected_by: sweep-raycast-store-extensions.py
   first_seen: '2026-10-22'
   direction: partner-built
+- partner_name: Packagist
+  partner: packagist
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (PHP)
+  evidence: https://packagist.org/packages/mollie/laravel-cashier-mollie
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: Packagist (public registry JSON)
+    spec_file: null
+    language: PHP
+    packages:
+    - name: mollie/laravel-cashier-mollie
+      version: v2.21.1
+      released: '2026-07-07'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/mollie/laravel-cashier-mollie
+      repo_leg: github-org:mollie
+      publisher_leg: email:mollie.com
+      matched_by: domain
+    - name: mollie/laravel-mollie
+      version: v5.0.0
+      released: '2026-10-16'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/mollie/laravel-mollie
+      repo_leg: github-org:mollie
+      publisher_leg: email:mollie.com
+      matched_by: domain
+    - name: mollie/mollie-api-php
+      version: v2.80.0
+      released: '2026-10-05'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/mollie/mollie-api-php
+      repo_leg: github-org:mollie
+      publisher_leg: email:mollie.com
+      matched_by: domain
+    - name: mollie/mollie-oxid
+      version: 2.0.4
+      released: '2026-09-22'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/mollie/mollie-oxid
+      repo_leg: github-org:mollie
+      publisher_leg: org:mollie
+      matched_by: github-org
+    - name: mollie/mollie-oxid7
+      version: 2.0.4
+      released: '2026-09-22'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/mollie/mollie-oxid7
+      repo_leg: github-org:mollie
+      publisher_leg: org:mollie
+      matched_by: github-org
+    - name: mollie/oauth2-mollie-php
+      version: v2.9.0
+      released: '2025-12-01'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/mollie/oauth2-mollie-php
+      repo_leg: github-org:mollie
+      publisher_leg: email:mollie.com
+      matched_by: domain
+    - name: mollie/reseller-api
+      version: v1.11.0
+      released: '2019-02-06'
+      released_field: time
+      lapsed: true
+      page: https://packagist.org/packages/mollie/reseller-api
+      repo_leg: github-org:mollie
+      publisher_leg: email:mollie.com
+      matched_by: domain
+      abandoned: true
+    - name: mollie/sylius-plugin
+      version: v5.7.5
+      released: '2025-01-15'
+      released_field: time
+      lapsed: true
+      page: https://packagist.org/packages/mollie/sylius-plugin
+      repo_leg: github-org:mollie
+      publisher_leg: org:mollie
+      matched_by: github-org
+      abandoned: true
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-php-dart-elixir-package-registries.py
+    detected: '2026-10-22'
+  detected_by: sweep-php-dart-elixir-package-registries.py
+  first_seen: '2026-10-22'
 templates: []
