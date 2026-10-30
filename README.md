@@ -64,38 +64,127 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Mollie B.V. is a Dutch payment service provider headquartered in Amsterdam that lets
-businesses across Europe accept online, point-of-sale and recurring payments through a
-single REST API and hosted checkout.
+Mollie B.V. is a Dutch payment service provider headquartered in Amsterdam that lets businesses across Europe accept online, point-of-sale and recurring payments through a single REST API and hosted checkout. The Mollie API is an HTTP+HAL (application/hal+json) interface at api.mollie.com covering Payments, Payment Links, Refunds, Chargebacks, Captures, Customers, Mandates, Subscriptions, Methods, Sessions, Terminals, Balances, Settlements, Payouts, Invoices, Sales Invoices, Business Accounts, Transfers, Onboarding, Capabilities, Clients, Client Links, Profiles, Organizations, Permissions, Delayed Routing, Verify Payee, Wallets, Webhooks and Webhook Events. Mollie supports European payment methods including iDEAL, Bancontact, SEPA Direct Debit, Klarna, PayPal, Apple Pay, Google Pay, BLIK, Przelewy24, TWINT, Vipps, MobilePay, Swish and cards. Mollie publishes an OpenAPI 3.1 specification, official SDKs for PHP, Node/TypeScript, Python, Ruby, Go, Java and C#/.NET, an OAuth 2.0 Connect platform for marketplaces, next-gen webhook subscriptions, and a hosted Model Context Protocol server plus an official agent toolkit and Agent Skill for AI-driven integrations.
 
-- Website: https://www.mollie.com/
-- Developer docs: https://docs.mollie.com/
-- API reference: https://docs.mollie.com/reference/overview
-- GitHub: https://github.com/mollie
-- Status: https://status.mollie.com/
+**Areas:** Company · Payments · Fintech · Financial Services · Checkout · E-Commerce · Subscription · Point-of-Sale · Europe · Netherlands · Payment Processing
 
-## APIs
+## Mollie on APIs.io
 
-| API | Base URL | Contract |
-|---|---|---|
-| Mollie API | https://api.mollie.com | OpenAPI 3.1.0, 124 operations, 33 API groups |
-| Mollie MCP Server | https://mcp.mollie.com/mcp | Hosted MCP over HTTP, OAuth-gated |
+Everything profiled for Mollie is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/mollie/](https://apis.io/providers/mollie/)** — or go straight to one of the APIs or properties below.
 
-## Artifacts
+### APIs (2)
 
-| Directory | What it holds |
+- [Mollie API](https://apis.io/apis/mollie/mollie-api/) — The Mollie API is a REST API using HAL (application/hal+json) over HTTPS at api.mollie.com. It covers 124 documented operations across 33 API groups —…
+- [Mollie MCP Server](https://apis.io/apis/mollie/mollie-mcp/) — Mollie's official hosted Model Context Protocol server at mcp.mollie.com/mcp. It exposes Mollie API capabilities to AI agents over streamable HTTP,…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Mollie Webhooks](https://apis.io/asyncapis/mollie/mollie-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [mollie](https://apis.io/servers/mollie/mollie/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Mollie Api Overlay](https://apis.io/overlays/mollie/mollie-api-overlay/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Mollie Authentication](https://apis.io/security/mollie/mollie-authentication/)
+- [Mollie Domain Security](https://apis.io/security/mollie/mollie-domain-security/)
+- [Mollie Trust Center](https://apis.io/security/mollie/mollie-trust-center/)
+- [Mollie Vulnerability Disclosure](https://apis.io/security/mollie/mollie-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Mollie Scopes](https://apis.io/scopes/mollie/mollie-scopes/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.mollie.com/)
+- [Documentation](https://docs.mollie.com/)
+- [Getting started](https://docs.mollie.com/docs/getting-started)
+- [API reference](https://docs.mollie.com/reference/overview)
+- [Pricing](https://www.mollie.com/pricing)
+- [Sign up](https://my.mollie.com/dashboard/signup)
+- [Support](https://help.mollie.com/hc/en-us)
+- [Changelog](https://docs.mollie.com/changelog)
+- [Blog](https://www.mollie.com/news)
+- [Security](https://www.mollie.com/legal/responsible-disclosure)
+- [Compliance](https://www.mollie.com/security)
+- [Terms of service](https://www.mollie.com/legal/user-agreement)
+- [Privacy policy](https://www.mollie.com/legal/privacy)
+- [GitHub](https://github.com/mollie)
+- [Status](https://status.mollie.com/)
+
+## API Evangelist rating
+
+**Kin Score 59.6** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
 |---|---|
-| `openapi/` | Mollie's own OpenAPI 3.1 document, harvested from github.com/mollie/openapi |
-| `overlays/` | API Evangelist Overlay 1.0.0 of our observations over that spec |
-| `authentication/` `scopes/` | Bearer/API-key/OAuth profile and the 61 published OAuth scopes |
-| `conventions/` | Idempotency, pagination, versioning, error envelope, rate-limit signalling |
-| `errors/` | Error catalogue (HAL, not RFC 9457) and 119 payment decline / status-reason codes |
-| `asyncapi/` | Webhook catalogue and the 36 published event types (no AsyncAPI document) |
-| `sandbox/` | Test keys, test cards, magic amounts, transfer simulation scenarios |
-| `mcp/` | MCP server manifest and the tool ↔ operationId crosswalk |
-| `skills/` | Mollie's own published Agent Skill plus four generated flow skills |
-| `packages/` | Official SDKs across PHP, Node/TypeScript, Python, Ruby, Go, Java and C# |
-| `components/` | Mollie.js, Mollie Components, Checkout Sessions, wallet integrations |
-| `data-model/` | Entity graph and identifier prefixes derived from the spec |
-| `security/` `well-known/` | security.txt, OAuth discovery, domain security, disclosure and trust posture |
-| `conformance/` `lifecycle/` `changelog/` | Standards conformance, versioning/deprecation posture, recent changes |
+| Discoverability | 75.0 |
+| Contract quality | 58.1 |
+| Contract governance | 18.2 |
+| Operational transparency | 44.7 |
+| Developer ergonomics | 61.9 |
+| Access clarity | 60.5 |
+
+**Agent readiness 70.4** — agent-native
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | verified |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | verified |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | — |
+| Event Surface Described | yes |
+| Agent Skills | yes |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 53.6** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/mollie/](https://apis.io/providers/mollie/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Mollie: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/mollie/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
